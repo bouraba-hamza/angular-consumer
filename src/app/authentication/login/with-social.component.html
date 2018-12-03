@@ -1,0 +1,80 @@
+
+<section class="login p-fixed d-flex text-center bg-primary common-img-bg">
+    <!-- starts -->
+    <div class="auth-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- Authentication card start -->
+                <div class="login-card card-body auth-body">
+                    <form method="post" action="" class="md-float-material" (ngSubmit)="onSubmit(f)" #f="ngForm">
+
+                        <div class="auth-box">
+
+                            <!--<div class="text-center">-->
+                                <!--<img style="background-color: #b8e3fd; margin-bottom: 10px;" src="assets/images/auth/logo-website_new.png" alt="logo.png">-->
+                            <!--</div>-->
+
+                            <!--<div class="row m-b-20">-->
+                            <!--<div class="col-md-3">-->
+                            <!--<h3 class="text-center txt-primary">Sign In</h3>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-9">-->
+                            <!--<p class="text-inverse m-t-25 text-left">Don't have an account? <a [routerLink]="['/authentication/registration/with-bg-image']"> Register </a> here for free!</p>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<p class="text-inverse b-b-default text-left p-b-5">Sign in easily with your social account:</p>-->
+                            <!--<div class="row m-b-20">-->
+                            <!--<div class="col-md-6">-->
+                            <!--<button class="btn btn-facebook m-b-20"><i class="icofont icofont-social-facebook"></i>Sign in with facebook</button>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-6">-->
+                            <!--<button class="btn btn-twitter m-b-20"><i class="icofont icofont-social-twitter"></i>Sign in with twitter</button>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<p class="text-inverse b-b-default text-left p-b-5">Sign in with your regular account</p>-->
+                            <div class="input-group">
+                              <span class="input-group-addon">
+                              <i class="icofont icofont-user">
+                              </i>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Adresse email" name="email" id="email" ngModel>
+
+                                <span class="md-line"></span>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                              <i class="icofont icofont-ui-password">
+                              </i>
+                                </span>
+                                <input type="password" class="form-control" placeholder="Mot de passe"  name="password" id="password" ngModel>
+                                <span class="md-line"></span>
+                            </div>
+                            <div class="row m-t-25 text-left">
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="checkbox-fade fade-in-primary">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                                            <span class="text-inverse">Se rappeler de moi !</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 forgot-phone text-right">
+                                    <a [routerLink]="['/authentication/forgot']" class="text-right f-w-600 text-inverse">Mot de passe oublié !</a>
+                                </div>
+                            </div>
+                            <div class="row m-t-30">
+                                <div class="col-md-12">
+                                    <input type="submit" value="Connexion" class="btn btn-primary btn-md btn-block waves-e ffect text-center m-b-20">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<ng2-toasty [position]="position"></ng2-toasty>

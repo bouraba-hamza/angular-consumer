@@ -1,0 +1,258 @@
+<card [classHeader]="true" [blockClass]="'table-border-style'">
+
+
+  <div _ngcontent-c6="" class="table-responsive">
+
+
+    <table _ngcontent-c6=""  class="table table-hover" >
+
+      <thead _ngcontent-c6="">
+      <tr class='table-filters'>
+
+        <th class="text-center priority-1" style=" width: 3%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Nom utilisateur" type="text"></th>
+        <th class="text-center priority-7" style="width: 8%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  pattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email" type="email"></th>
+        <th class="text-center priority-2" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Prénom" type="text"></th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Nom" type="text"></th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  myNumberOnly maxlength="10" placeholder="Téléphone" type="tel"></th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Adresse" type="text"></th>
+        <th class="text-center priority-1" style=" width: 3%;">
+          <select _ngcontent-c6="" id="utilisateur_select"  class="form-control form-control-success ">
+            <option  value="">Fonction</option>
+            <option *ngFor="let single_utilisateur of typesutilisateur" _ngcontent-c10="" value="{{single_utilisateur.types}}">{{single_utilisateur.types}}</option>
+          </select>
+        </th>
+        <th class="text-center priority-7" style="width: 8%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Compte utilisateur" type="text"></th>
+
+
+        <th class="text-center priority-3" style="width: 5%;"><button type="button" class="btn  btn-outline-primary" title="Ajouter" (click)="open(content)"><i class="icofont icofont-ui-add" aria-hidden="true">Ajouter Utilisateur</i></button></th>
+
+      <tr>
+        <th class="text-center priority-1" style="width: 1%;"> Nom utilisateur </th>
+        <th class="text-center priority-7" style="width: 8%;"> Email </th>
+        <th class="text-center priority-2" style="width: 5%;"> Prénom  </th>
+        <th class="text-center priority-3" style="width: 5%;"> Nom  </th>
+        <th class="text-center priority-3" style="width: 5%;"> Téléphone  </th>
+        <th class="text-center priority-3" style="width: 5%;"> Adresse  </th>
+        <th class="text-center priority-3" style="width: 8%;"> Fonction </th>
+        <th class="text-center priority-3" style="width: 5%;"> Compte utilisateur </th>
+        <th class="text-center priority-3" style="width: 5%;"> Action  </th>
+      </tr>
+      </thead>
+      <tbody _ngcontent-c6="">
+      <tr *ngFor="let post of utilisateurData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index" class='table-data'>
+
+        <td (click)="open(contentUtilisateur,post)" style="text-align:center">{{ post.name }}</td>
+        <td (click)="open(contentUtilisateur,post)" style="text-align:center">{{ post.email }}</td>
+        <td (click)="open(contentUtilisateur,post)" style="text-align:center">{{ post.first_name }}</td>
+        <td (click)="open(contentUtilisateur,post)" style="text-align:center">{{ post.last_name }}</td>
+        <td (click)="open(contentUtilisateur,post)" style="text-align:center">{{ post.phone_number }}</td>
+        <td (click)="open(contentUtilisateur,post)" style="text-align:center">{{ post.adresse }}</td>
+        <td (click)="open(contentUtilisateur,post)" style="text-align:center">{{ post.types }}</td>
+        <td (click)="open(contentUtilisateur,post)" style="text-align:center">
+          <div *ngIf="post.disabled == 1">
+            <span class="badge badge-pill badge-primary">Activé</span></div>
+          <div *ngIf="post.disabled == 0">
+            <span class="badge badge-pill badge-danger">Désactivé</span></div></td>
+
+
+        <td style="text-align:center"   ><button type="button" class="btn btn-outline-success" title="Modifier" (click)="open(contentUtilisateurUpdate)"><i class="icofont icofont-edit"></i></button>
+
+
+          <ng-template #contentUtilisateurUpdate let-c="close" let-d="dismiss">
+            <div class="modal-header" style="background-color: #4cd787">
+              <h4 class="modal-title" id="modal-basic-title" style="color: white">Modifier Utilisateur</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <form method="post" action="" [formGroup]="myformUpdate" (ngSubmit)="onUpdate(post.num,post.name,post.email,post.password,post.first_name,post.last_name,post.phone_number,post.adresse,post.fonction,post.disabled); d('Cross click');">
+                <div class="form-group">
+                  <label class="col-form-label">Nom utilisateur :</label>
+                  <input type="text" class="form-control" formControlName="name" value='{{ post.name }}' >
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Email :</label>
+                  <input type="email" class="form-control" pattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" formControlName="email" value='{{ post.email }}' required>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Mot de passe :</label>
+                  <input type="password" class="form-control"  formControlName="password" value='{{ post.password }}'>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Prénom :</label>
+                  <input type="text" class="form-control"  formControlName="first_name" value='{{ post.first_name }}'>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Nom :</label>
+                  <input type="text" class="form-control"  formControlName="last_name" value='{{ post.last_name }}'>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Téléphone :</label>
+                  <input type="tel" class="form-control" myNumberOnly maxlength="10" formControlName="phone_number" value='{{ post.phone_number }}'>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Adresse :</label>
+                  <input type="text" class="form-control"  formControlName="adresse" value='{{ post.adresse }}'>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Fonction :</label>
+                  <select _ngcontent-c10="" class="form-control" formControlName="fonction" value="{{post.fonction}}" ngModel>
+                    <option *ngFor="let single_utilisateur of typesutilisateur" _ngcontent-c10="" value="{{single_utilisateur.id}}">{{single_utilisateur.types}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Compte utilisateur :</label>
+                  <select _ngcontent-c10="" class="form-control" formControlName="disabled" ngModel>
+                    <option _ngcontent-c10="" value="1">Activé</option>
+                    <option _ngcontent-c10="" value="0">Désactivé</option>
+                  </select>
+                </div>
+
+
+                <div class="modal-footer">
+                  <button class="btn btn-dark" (click)="c('Close click')">Annuler</button>
+                  <button type="submit" value="Submit" class="btn btn-success"><i class="icofont icofont-edit"></i>Modifier</button>
+
+                </div>
+
+              </form>
+            </div>
+
+          </ng-template>
+
+          <ng-template #contentUtilisateur let-c="close" let-d="dismiss">
+            <div class="modal-header" style="background-color: #00AEEF">
+              <h4 class="modal-title" style="color: white">Détail Utilisateur</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <dl class="row">
+                <dt class="col-sm-3">Nom utilisateur :</dt>
+                <dd class="col-sm-3">{{ post.name }}</dd>
+
+                <dt class="col-sm-3">Email :</dt>
+                <dd class="col-sm-3">{{ post.email }}</dd>
+
+                <dt class="col-sm-3">Prénom :</dt>
+                <dd class="col-sm-3">{{ post.first_name }}</dd>
+
+                <dt class="col-sm-3">Nom :</dt>
+                <dd class="col-sm-3">{{ post.last_name }}</dd>
+
+                <dt class="col-sm-3">Téléphone :</dt>
+                <dd class="col-sm-3">{{ post.phone_number}}</dd>
+
+                <dt class="col-sm-3">Adresse :</dt>
+                <dd class="col-sm-3">{{ post.adresse }}</dd>
+
+                <dt class="col-sm-3">Fonction :</dt>
+                <dd class="col-sm-3">{{ post.types}}</dd>
+
+                <dd class="col-sm-3">Compte utilisateur :<div *ngIf="post.disabled == 1">
+                  <span class="badge badge-pill badge-primary">Activé</span>
+                </div>
+                  <div *ngIf="post.disabled == 0">
+                    <span class="badge badge-pill badge-info">Désactivé</span>
+                  </div></dd>
+
+
+              </dl>
+              <!-- /.panel-body -->
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" (click)="c('Close click')">Fermer</button>
+            </div>
+          </ng-template>
+
+
+
+      </tr>
+      </tbody>
+    </table>
+    <form class="pagination-wrapper">
+      <div class="form-group pages" style="margin-left: 8px">
+        <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)"  directionLinks="true"
+                             autoHide="true" previousLabel="Précedent" nextLabel="Suivant" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                             screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+      </div>
+      <div class="form-group options pages" style="margin-right: 8px">
+        <div class="input-group input-group-sm">
+          <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="getUtilisateur()">
+            <option>1</option>
+            <option>5</option>
+            <option>10</option>
+            <option>20</option>
+            <option>50</option>
+            <option>100</option>
+            <option>200</option>
+          </select>
+          <span class="input-group-addon addon-right">Page</span>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header" style="background-color: #4cd787">
+      <h4 class="modal-title" id="modal-basic-title" style="color: white">Ajouter Utilisateur</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <form method="post" action="" [formGroup]="myform" (ngSubmit)="onSubmit()" >
+        <div class="form-group">
+          <label class="col-form-label">Nom utilisateur :</label><span _ngcontent-c4="" class="col-form-label" style="color: red">  *  </span>
+          <input type="text" class="form-control" formControlName="name"
+          >
+
+          <label class="col-form-label">Email :</label><span _ngcontent-c4="" class="col-form-label" style="color: red">  * </span>
+          <input type="email" class="form-control" pattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" formControlName="email" ngModel required
+          >
+          <label class="col-form-label">Mot de passe :</label><span _ngcontent-c4="" class="col-form-label" style="color: red">  *  </span>
+          <input type="password" class="form-control" formControlName="password" ngModel required
+          >
+          <label class="col-form-label">Prénom :</label>
+          <input type="text" class="form-control" formControlName="first_name" ngModel required
+          >
+          <label class="col-form-label">Nom :</label>
+          <input type="text" class="form-control" formControlName="last_name" ngModel required
+          >
+          <label class="col-form-label">Téléphone :</label><span _ngcontent-c4="" class="col-form-label" style="color: red">  * </span>
+          <input type="tel" class="form-control" myNumberOnly maxlength="10" formControlName="phone_number" ngModel required
+          >
+          <label class="col-form-label">Adresse :</label>
+          <input type="text" class="form-control" formControlName="adresse" ngModel required
+          >
+          <label class="col-form-label">Fonction :</label><span _ngcontent-c4="" class="col-form-label" style="color: red">  * </span>
+          <select _ngcontent-c10="" class="form-control" formControlName="fonction" ngModel required >
+            <option *ngFor="let single_utilisateur of typesutilisateur" _ngcontent-c10="" value="{{single_utilisateur.id}}">{{single_utilisateur.types}}</option>
+          </select>
+
+          <label class="col-form-label">Compte utilisateur :</label>
+          <select _ngcontent-c10="" class="form-control" formControlName="disabled" ngModel>
+            <option _ngcontent-c10="" value="1">Activé</option>
+            <option _ngcontent-c10="" value="0">Désactivé</option>
+          </select>
+
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-dark" (click)="c('Close click')">Annuler</button>
+          <button type="submit" value="Submit" class="btn btn-success" [enabled]="myform.invalid"><i class="icofont icofont-ui-add"></i>Ajouter</button>
+        </div>
+
+      </form>
+    </div>
+
+  </ng-template>
+  <ng2-toasty [position]="position"></ng2-toasty>
+</card>

@@ -1,0 +1,402 @@
+<style>
+  .api_key{
+    background: none;
+    color: #222222;
+    border: 1px solid #222222;
+    border-radius: 2px;
+  }
+
+
+  #countainer{
+    display: none;
+  }
+
+</style>
+<card [classHeader]="true" [blockClass]="'table-border-style'">
+
+
+  <div _ngcontent-c6="" class="table-responsive">
+
+
+    <table _ngcontent-c6="" class="table table-hover">
+      <thead _ngcontent-c6="">
+      <tr class='table-filters'>
+
+        <th class="text-center priority-1" style=" width: 3%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"   placeholder="Nom" type="text"></th>
+        <th class="text-center priority-7" style="width: 8%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()" myNumberOnly placeholder="Contact_GSM" type="tel"></th>
+        <th class="text-center priority-1" style=" width: 3%;">
+          <select _ngcontent-c6="" id="client_select"  class="form-control form-control-success ">
+            <option  value="">Types</option>
+            <option *ngFor="let single_costumer of typescustomer" _ngcontent-c10="" value="{{single_costumer.types}}">{{single_costumer.types}}</option>
+          </select>
+        </th>
+        <th class="text-center priority-2" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  myNumberOnly placeholder="Téléphone_FIX" type="tel"></th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Email" type="email"></th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Ville" type="text"></th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Département" type="text"></th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Code_Postal" type="text"></th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Région" type="text"></th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Adresse" type="text"></th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Date_Contract" type="date"></th>
+
+
+        <th class="text-center priority-3" style="width: 5%;"><button class="btn  btn-outline-primary" title="Ajouter" (click)="open(content)"><i class="icofont icofont-ui-add"></i>Ajouter client</button></th>
+
+      <tr>
+        <th class="text-center priority-1" style=" width: 1%;"> Nom  </th>
+        <th class="text-center priority-7" style="width: 8%;"> Contact_GSM  </th>
+        <th class="text-center priority-9" style="width: 5%;"> Types  </th>
+        <th class="text-center priority-2" style="width: 5%;"> Téléphone_FIX </th>
+        <th class="text-center priority-3" style="width: 5%;"> Email  </th>
+        <th class="text-center priority-3" style="width: 5%;"> Ville  </th>
+        <th class="text-center priority-3" style="width: 5%;"> Département  </th>
+        <th class="text-center priority-3" style="width: 5%;"> Code_Postal  </th>
+        <th class="text-center priority-3" style="width: 5%;"> Région  </th>
+        <th class="text-center priority-3" style="width: 5%;"> Adresse </th>
+        <th class="text-center priority-3" style="width: 5%;"> Date_Contract  </th>
+        <th class="text-center priority-3" style="width: 5%;"> Action  </th>
+      </tr>
+      </thead>
+
+      <tbody _ngcontent-c6="">
+
+      <tr *ngFor="let post of costumerData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index" class='table-data'>
+        <td (click)="open(contentCostumer,post)" style="text-align:center">{{ post.name }}</td>
+        <td (click)="open(contentCostumer,post)" style="text-align:center">{{ post.contact }}</td>
+        <td (click)="open(contentCostumer,post)" style="text-align:center">{{ post.types }}</td>
+        <td (click)="open(contentCostumer,post)" style="text-align:center">{{ post.phone_number }}</td>
+        <td (click)="open(contentCostumer,post)" style="text-align:center">{{ post.mail }}</td>
+        <td (click)="open(contentCostumer,post)" style="text-align:center">{{ post.city }}</td>
+        <td (click)="open(contentCostumer,post)" style="text-align:center">{{ post.departement }}</td>
+        <td (click)="open(contentCostumer,post)" style="text-align:center">{{ post.codepostal }}</td>
+        <td (click)="open(contentCostumer,post)" style="text-align:center">{{ post.region }}</td>
+        <td (click)="open(contentCostumer,post)" style="text-align:center">{{ post.adress }}</td>
+        <td (click)="open(contentCostumer,post)" style="text-align:center">{{ post.date_debut_contrat }}</td>
+
+
+
+        <td style="text-align:center"   >
+          <button type="button" class="btn btn-outline-success" title="Modifier" (click)="open(contentCostumerUpdate)"><i class="icofont icofont-edit"></i></button>
+
+          <button type="button" class="btn btn-outline-danger" title="Supprimer" (click)="opensm(contentCostumerDelete)"><i class="icofont icofont-ui-delete"></i></button>
+
+          <div *ngIf="post.api_key == null;then not_exist else exist"></div>
+          <ng-template #not_exist></ng-template>
+          <ng-template #exist><button type="button" class="btn btn-outline-info " title="Détails"><i class="icofont icofont-car"></i></button></ng-template>
+
+
+
+
+          <ng-template #contentCostumerDelete let-c="close" let-d="dismiss">
+            <div class="modal-header" style="background-color: #DD4B39">
+              <h4 class="modal-title" style="color: white">Supprimer client</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <dl class="row">
+                <dt class="col-sm-3">Nom :</dt>
+                <dd class="col-sm-3">{{ post.name }}</dd>
+
+                <dt class="col-sm-3">Contact_GSM:</dt>
+                <dd class="col-sm-3">{{ post.contact }}</dd>
+
+                <dt class="col-sm-3">Types :</dt>
+                <dd class="col-sm-3">{{ post.types }}</dd>
+
+                <dt class="col-sm-3">Téléphone_FIX :</dt>
+                <dd class="col-sm-3">{{ post.phone_number }}</dd>
+
+                <dt class="col-sm-3">Email :</dt>
+                <dd class="col-sm-3">{{ post.mail }}</dd>
+
+                <dt class="col-sm-3">Ville :</dt>
+                <dd class="col-sm-3">{{ post.city }}</dd>
+
+                <dt class="col-sm-3">Département :</dt>
+                <dd class="col-sm-3">{{ post.departement }}</dd>
+
+                <dt class="col-sm-3">Code_Postal :</dt>
+                <dd class="col-sm-3">{{ post.codepostal }}</dd>
+
+                <dt class="col-sm-3">Région :</dt>
+                <dd class="col-sm-3">{{ post.region }}</dd>
+
+                <dt class="col-sm-3">Adresse :</dt>
+                <dd class="col-sm-3">{{ post.adress }}</dd>
+
+                <dt class="col-sm-3">Date_Contract :</dt>
+                <dd class="col-sm-3">{{ post.date_debut_contrat }}</dd>
+              </dl>
+              <!-- /.panel-body -->
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger btn-square" (click)="delete(post)"  (click)="d('Cross click')"><i class="icofont icofont-warning-alt"></i>Supprimer</button>
+              <button type="button" class="btn btn-dark btn-square"  (click)="d('Cross click')">Quitter</button>
+            </div>
+          </ng-template>
+
+
+
+          <ng-template #contentCostumerUpdate let-c="close" let-d="dismiss">
+            <div class="modal-header" style="background-color: #4cd787">
+              <h4 class="modal-title" id="modal-basic-title" style="color: white">Modifier client</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+
+              <form method="post" action="" [formGroup]="myformUpdate" (ngSubmit)="onUpdate(post.id,post.name,post.contact,post.type_id,post.phone_number,post.mail,post.city,post.departement,post.adress,post.user_id,post.date_debut_contrat,post.api_key,post.nombre_appel,post.codepostal,post.region); d('Cross click');">
+                <div class="form-group">
+                  <label class="col-form-label">Nom :</label>
+                  <input type="text" class="form-control" formControlName="name" value='{{ post.name }}' ngModel>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Contact_GSM :</label>
+                  <input type="tel" class="form-control" myNumberOnly maxlength="10" formControlName="contact" value='{{ post.contact }}' ngModel>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Types :</label>
+                  <select _ngcontent-c10="" class="form-control" formControlName="type_id" value="{{post.type_id}}" ngModel>
+                    <option *ngFor="let single_costumer of typescustomer" _ngcontent-c10="" value="{{single_costumer.id}}">{{single_costumer.types}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Téléphone_FIX :</label>
+                  <input type="tel" class="form-control" myNumberOnly maxlength="10" formControlName="phone_number"  value='{{ post.phone_number }}' ngModel>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Email :</label>
+                  <input type="email" class="form-control" formControlName="mail" value='{{ post.mail }}' ngModel>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Ville :</label>
+                  <input type="text" class="form-control"  formControlName="city" value='{{ post.city }}' ngModel>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Département :</label>
+                  <input type="text" class="form-control"  formControlName="departement" value='{{ post.departement }}' ngModel>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Code_Postal :</label>
+                  <input type="text" class="form-control"  formControlName="codepostal" value='{{ post.codepostal }}' ngModel>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Région :</label>
+                  <input type="text" class="form-control"  formControlName="region" value='{{ post.region }}' ngModel>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Adresse :</label>
+                  <input type="text" class="form-control"  formControlName="adress" value='{{ post.adress }}' ngModel>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Date_Contract :</label>
+                  <input type="date" class="form-control"  formControlName="date_debut_contrat" value='{{ post.date_debut_contrat }}' ngModel>
+                </div>
+                <a href="javascript:;" style=" text-align: right;float: right;" (click)="satfleetClick()">Satfleet</a>
+                <div id="countainerSatflee" style="display: none">
+                <div class="form-group">
+                  <label  class="col-form-label">Clé_API :</label>
+                  <input type="text" class="form-control"  formControlName="api_key" value='{{ post.api_key }}' ngModel>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Nombre_Appel :</label>
+                  <input type="number" class="form-control"  formControlName="nombre_appel" value='{{ post.nombre_appel }}' ngModel>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Nom_Utilisateur :</label>
+                  <select _ngcontent-c10="" class="form-control" formControlName="user_id" value="{{post.user_id}}" ngModel>
+                    <option *ngFor="let single_costumer of utilisateur" _ngcontent-c10="" value="{{single_costumer.id}}">{{single_costumer.name}}</option>
+                  </select>
+                </div>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-dark" (click)="c('Close click')">Quitter</button>
+                  <button type="submit" value="Submit" class="btn btn-success"><i class="icofont icofont-edit"></i>Modifier</button>
+
+                </div>
+
+              </form>
+            </div>
+
+          </ng-template>
+
+          <ng-template #contentCostumer let-c="close" let-d="dismiss">
+            <div class="modal-header" style="background-color: #00AEEF">
+              <h4 class="modal-title" style="color: white">Détail client</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <dl class="row">
+                <dt class="col-sm-3">Nom :</dt>
+                <dd class="col-sm-3">{{ post.name }}</dd>
+
+                <dt class="col-sm-3">Contact_GSM :</dt>
+                <dd class="col-sm-3">{{ post.contact}}</dd>
+
+                <dt class="col-sm-3">Types :</dt>
+                <dd class="col-sm-3">{{ post.types }}</dd>
+
+                <dt class="col-sm-3">Téléphone_FIX :</dt>
+                <dd class="col-sm-3">{{ post.phone_number }}</dd>
+
+                <dt class="col-sm-3">Email :</dt>
+                <dd class="col-sm-3">{{ post.mail }}</dd>
+
+                <dt class="col-sm-3">Ville :</dt>
+                <dd class="col-sm-3">{{ post.city }}</dd>
+
+                <dt class="col-sm-3">Département :</dt>
+                <dd class="col-sm-3">{{ post.departement }}</dd>
+
+                <dt class="col-sm-3">Code_Postal :</dt>
+                <dd class="col-sm-3">{{ post.codepostal }}</dd>
+
+                <dt class="col-sm-3">Région :</dt>
+                <dd class="col-sm-3">{{ post.region }}</dd>
+
+                <dt class="col-sm-3">Adresse :</dt>
+                <dd class="col-sm-3">{{ post.adress }}</dd>
+
+                <dt class="col-sm-3">Date_Contract :</dt>
+                <dd class="col-sm-3">{{ post.date_debut_contrat }}</dd>
+
+
+              </dl>
+              <!-- /.panel-body -->
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" (click)="c('Close click')">Fermer</button>
+            </div>
+          </ng-template>
+
+
+      </tr>
+      </tbody>
+    </table>
+    <form class="pagination-wrapper">
+      <div class="form-group pages" style="margin-left: 8px">
+        <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)"  directionLinks="true"
+                             autoHide="true" previousLabel="Précédent" nextLabel="Suivant" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                             screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+      </div>
+      <div class="form-group options pages" style="margin-right: 8px">
+        <div class="input-group input-group-sm">
+          <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="getCostumer()">
+            <option>1</option>
+            <option>5</option>
+            <option>10</option>
+            <option>20</option>
+            <option>50</option>
+            <option>100</option>
+            <option>200</option>
+          </select>
+          <span class="input-group-addon addon-right">Page</span>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header" style="background-color: #4cd787">
+      <h4 class="modal-title" id="modal-basic-title" style="color: white">Ajouter client</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <form method="post" action="" [formGroup]="myform" (ngSubmit)="onSubmit()" >
+        <div class="form-group">
+          <label class="col-form-label">Nom :</label><span _ngcontent-c4="" class="col-form-label" style="color: red"> * </span>
+          <input type="text" class="form-control" formControlName="name" ngModel required>
+
+          <label class="col-form-label">Contact_GSM :</label><span _ngcontent-c4="" class="col-form-label" style="color: red"> *  </span>
+          <input type="tel"  myNumberOnly maxlength="10"  class="form-control" formControlName="contact" ngModel required>
+
+          <label class="col-form-label">Types :</label><span _ngcontent-c4="" class="col-form-label" style="color: red"> *  </span>
+          <select _ngcontent-c10="" class="form-control" formControlName="type_id" id="type_id" ngModel required >
+            <option *ngFor="let single_costumer of typescustomer" _ngcontent-c10="" value="{{single_costumer.id}}">{{single_costumer.types}}</option>
+          </select>
+
+
+
+
+          <!--<br>-->
+          <!--<label class="col-form-label">Ajouter un nouveau type de client : <input type="checkbox" id="check_hideshow_new_type" (change)="Click()" value="Nouveau_Type_Client" ></label>-->
+
+          <!--<div id="countainer" style="display: none">-->
+          <!--<label class="col-form-label">Nouveau_Type :</label>-->
+          <!--<input type="text" class="form-control" formControlName="new_type" >-->
+          <!--</div>-->
+
+          <br>
+          <label class="col-form-label">Téléphone_FIX :</label>
+          <input type="tel" myNumberOnly maxlength="10" class="form-control" formControlName="phone_number" ngModel required>
+
+          <label class="col-form-label">Email :</label>
+          <input type="email" class="form-control" formControlName="mail" ngModel required>
+
+          <label class="col-form-label">Ville :</label>
+          <input type="text" class="form-control" formControlName="city" ngModel required>
+
+          <label class="col-form-label">Département :</label>
+          <input type="text" class="form-control" formControlName="departement" ngModel required>
+
+          <label class="col-form-label">Code_Postal :</label>
+          <input type="text" class="form-control" formControlName="codepostal" ngModel required>
+
+          <label class="col-form-label">Région :</label>
+          <input type="text" class="form-control" formControlName="region" ngModel required>
+
+          <label class="col-form-label">Adresse :</label>
+          <input type="text" class="form-control" formControlName="adress" ngModel required>
+
+          <label class="col-form-label">Date_Contract :</label><span _ngcontent-c4="" class="col-form-label" style="color: red"> * </span>
+          <input type="date" class="form-control" formControlName="date_debut_contrat" ngModel required>
+        </div>
+
+
+
+
+        <a href="javascript:;" style=" text-align: right;float: right;" (click)="satfletClick()">Satfleet</a>
+        <div id="countainerSatfleet" style="display: none">
+
+
+
+          <label class="col-form-label">Clé_API :</label>
+          <input type="text" class="form-control" formControlName="api_key" ngModel required>
+
+          <label class="col-form-label">Nombre_Appel :</label>
+          <input type="number" placeholder="Exemple: 10" class="form-control" formControlName="nombre_appel" ngModel required>
+
+          <label class="col-form-label">Nom_Utilisateur :</label>
+          <select _ngcontent-c10="" class="form-control" formControlName="user_id" ngModel required >
+            <option *ngFor="let single_costumer of utilisateur" _ngcontent-c10="" value="{{single_costumer.id}}">{{single_costumer.name}}</option>
+          </select>
+        </div>
+
+
+
+        <div class="modal-footer">
+          <button class="btn btn-dark" (click)="c('Close click')">Quitter</button>
+          <button type="submit" value="Submit" class="btn btn-success" ><i class="icofont icofont-ui-add"></i>Ajouter</button>
+        </div>
+
+      </form>
+    </div>
+
+  </ng-template>
+
+  <ng2-toasty [position]="position"></ng2-toasty>

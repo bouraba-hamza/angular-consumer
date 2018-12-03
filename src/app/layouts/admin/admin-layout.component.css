@@ -1,0 +1,67 @@
+/* You can add global styles to this file, and also import other style files */
+
+aside.pcoded-slider.ng-sidebar {
+    top: 56px;
+}
+
+.slimscroll-wrapper, .scroll-window {
+    width: 100% !important;
+}
+
+.userlist-box.show {
+    display: -webkit-box;
+}
+
+.userlist-box.hide {
+    display: none;
+}#div_lampe_indicatrice_connex_state{
+     width: 1.5vw;
+     position: fixed;
+     right: 0.6vw;
+     top: 0.6vw;
+     z-index: 999999;
+ }
+
+#red_round{
+    width: 1.5vw;
+    height: 1.5vw;
+    background: red;
+    display: inline-block;
+    color: transparent;
+    background: url("../../../assets/images/red_round.png");
+    background-size: 1vw;
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+#green_round{
+    width: 1.5vw;
+    height: 1.5vw;
+    background: green;
+    display: inline-block;
+    color: transparent;
+    background: url("../../../assets/images/green_round.png");
+    background-size: 1vw;
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+.div_online_save{
+    background: green;
+    color:white;
+    font-weight: 600;
+    text-align: center;
+    padding: 1vw;
+    position: absolute;
+    top: 1vw;
+    right: 1vw;
+}
+.div_offline_save{
+    background: red;
+    color:white;
+    font-weight: 600;
+    text-align: center;
+    padding: 1vw;
+    position: absolute;
+    top: 1vw;
+    right: 1vw;
+}
+

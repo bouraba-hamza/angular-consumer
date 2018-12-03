@@ -1,0 +1,130 @@
+<card [classHeader]="true" [blockClass]="'table-border-style'">
+
+  <div _ngcontent-c6="" class="table-responsive">
+
+    <card cardTitle="Data Table">
+
+      <table _ngcontent-c6=""  class="table table-hover" >
+
+        <thead _ngcontent-c6="">
+        <tr class='table-filters'>
+          <th class="text-center priority-1" style="width: 8%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()" placeholder="Prénom" type="text"></th>
+          <th class="text-center priority-7" style="width: 8%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Nom" type="text"></th>
+          <th class="text-center priority-9" style="width: 10%;"> <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()" placeholder="Téléphone" maxlength="10" myNumberOnly placeholder="Téléphone" pattern="^\d{3}-\d{3}-\d{4}$" type="tel"></th>
+          <th class="text-center priority-7" style="width: 8%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Fonction" type="text"></th>
+          <th class="text-center priority-7" style="width: 8%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Nbr boitier" type="number"></th>
+          <th class="text-center priority-7" style="width: 8%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Nbr GSM" type="number"></th>
+          <!--<th class="text-center priority-7" style="width: 8%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Nbr Inter Incomp" type="number"></th>-->
+
+
+        </tr>
+
+
+        <tr>
+          <th class="text-center priority-1" style="width: 1%;"> Prénom </th>
+          <th class="text-center priority-7" style="width: 9%;"> Nom </th>
+          <th class="text-center priority-9" style="width: 10%;"> Téléphone </th>
+          <th class="text-center priority-2" style="width: 5%;"> Fonction </th>
+          <th class="text-center priority-2" style="width: 5%;"> Nombre de boitier </th>
+          <th class="text-center priority-2" style="width: 5%;"> Nombre de GSM </th>
+          <!--<th class="text-center priority-2" style="width: 5%;"> Nombre d'intervention incomplète </th>-->
+          <th class="text-center priority-2" style="width: 5%;"> Détail </th>
+        </tr>
+
+        </thead>
+
+        <tbody _ngcontent-c6="">
+
+        <tr *ngFor="let post of installateurData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index" class='table-data'>
+
+          <td (click)="open(contentInstallateur,post)" style="text-align:center">{{post.first_name}}</td>
+          <td (click)="open(contentInstallateur,post)" style="text-align:center">{{post.last_name}}</td>
+          <td (click)="open(contentInstallateur,post)" style="text-align:center">{{post.phone_number}}</td>
+          <td (click)="open(contentInstallateur,post)" style="text-align:center">{{post.fonction}}</td>
+          <td (click)="open(contentInstallateur,post)" style="text-align:center">{{post.nombreboitier}}</td>
+          <td (click)="open(contentInstallateur,post)" style="text-align:center">{{post.nombregsm}}</td>
+          <!--<td (click)="open(contentInstallateur,post)" style="text-align:center">{{post.m}}</td>-->
+
+
+
+
+
+          <!--<td style="text-align:center"><input type="button" class="btn btn-outline-success" value="+" onclick="javascript:detail-personal.html;"></td>-->
+
+          <a href="../detail_personal/{{post.id}}"><button type="button" class="btn btn-outline-success">+</button></a>
+
+
+          <ng-template #contentInstallateur let-c="close" let-d="dismiss">
+            <div class="modal-header" style="background-color: #00AEEF">
+              <h4 class="modal-title" style="color: white">Détail Installateur</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <dl class="row">
+                <dt class="col-sm-3">Prénom :</dt>
+                <dd class="col-sm-3">{{post.first_name}}</dd>
+
+                <dt class="col-sm-3">Nom :</dt>
+                <dd class="col-sm-3">{{post.last_name}}</dd>
+
+                <dt class="col-sm-3">Téléphone :</dt>
+                <dd class="col-sm-3">{{post.phone_number}}</dd>
+
+                <dt class="col-sm-3">Fonction :</dt>
+                <dd class="col-sm-3">{{post.fonction}}</dd>
+
+                <dt class="col-sm-3">Nombre de boitier :</dt>
+                <dd class="col-sm-3">{{post.nombreboitier}}</dd>
+
+                <dt class="col-sm-3">Nombre de GSM :</dt>
+                <dd class="col-sm-3">{{post.nombregsm}}</dd>
+
+                <!--<dt class="col-sm-3">Nombre d'intervention incomplète :</dt>-->
+                <!--<dd class="col-sm-3">{{post.nombreinter}}</dd>-->
+              </dl>
+              <!-- /.panel-body -->
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" (click)="c('Close click')">Fermer</button>
+            </div>
+          </ng-template>
+
+        </tbody>
+
+      </table>
+
+
+      <form class="pagination-wrapper">
+        <div class="form-group pages" style="margin-left: 8px">
+          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)"  directionLinks="true"
+                               autoHide="true" previousLabel="Précédent" nextLabel="Suivant" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                               screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+        </div>
+        <div class="form-group options pages" style="margin-right: 8px">
+          <div class="input-group input-group-sm">
+            <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="getInstallateur()">
+              <option>1</option>
+              <option>5</option>
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+              <option>100</option>
+              <option>200</option>
+            </select>
+            <span class="input-group-addon addon-right">Page</span>
+          </div>
+        </div>
+      </form>
+
+
+    </card>
+  </div>
+
+</card>
+
+
+<ng2-toasty [position]="position"></ng2-toasty>

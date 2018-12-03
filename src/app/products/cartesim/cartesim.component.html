@@ -1,0 +1,701 @@
+
+
+
+<card [classHeader]="true" [blockClass]="'table-border-style'">
+
+
+
+  <div class="row" style=" margin-top: 12px; margin: 0px;">
+    <!--<div class="col-sm-4"><input  id="import1" style="  display: none "  class="form-control" type="file" name="files" #uploads  multiple-->
+    <!--value="process" ></div>-->
+    <div class="col-sm-3">
+    </div>
+
+    <div class="col-sm-3" style="text-align: right;">
+
+
+    </div>
+
+    <div class="col-sm-3" style="text-align: right;">
+
+    </div>
+    <div class="col-sm-3" style="text-align: right;">
+      <!--<a class="text-muted" data-original-title="Delete" data-placement="top" data-toggle="tooltip" href="javascript:" title=""><i class="icofont icofont-square-right"></i></a>-->
+
+      <button type="submit" class="btn-group-sm btn-outline-success" (click)="openActivation(Activation)"    ><span style="font-size: 24px"  title="Activer"> <i class="icofont icofont-check"></i></span></button>
+      <button type="button"  class="btn-group-sm btn-outline-success" (click)="openAffectation(Affectation)" ><span style="font-size: 24px"  title="Affectation"> <i class="icofont icofont-arrow-right"></i></span></button>
+
+      <button type="button" class="btn-group-sm btn-outline-success"  (click)="openTransfert(Transfert)"><span style="font-size: 24px"  style="font-size: 24px" title="Transferer"> <i class="icofont icofont-exchange"></i></span></button>
+      <button type="button" class="btn-group-sm btn-outline-success"  (click)="openLiberation(Libere)"  ><span style="font-size: 24px"  title="Liberer"> <i class="icofont icofont-broken" ></i></span></button>
+      <button type="button" class="btn-group-sm btn-outline-success" (click)="openBlocage(Blocage)" ><span style="font-size: 24px"  title="Bloquer"> <i class="icofont icofont-unlock"></i></span></button>
+      <button type="button" class="btn-group-sm btn-outline-success" (click)="openDeblocage(Deblocage)" ><span style="font-size: 24px"  title="Debloquer"> <i class="icofont icofont-unlocked"></i></span></button>
+      <button type="button"  class="btn-group-sm btn-outline-success" (click)="openRetour(Retour)" ><span style="font-size: 24px"  title="Retourner"> <i class="icofont icofont-arrow-left"></i></span></button>
+
+
+    </div>
+  </div>
+
+  <ng-template #Activation let-c="close" let-d="dismiss" >
+    <div class="modal-header" style="background-color: #DD4B39">
+      <h4 class="modal-title" style="color: white">Activer les cartes sim</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+
+      <form _ngcontent-c17="" class="ng-untouched ng-pristine ng-valid"  (ngSubmit)="ValiderActivation(aff);d('Cross click')" #aff="ngForm"  >
+
+        <div  _ngcontent-c17="" class="form-group row" >
+          <label _ngcontent-c17="" class="col-sm-3 col-form-label" >Nombre a activer </label>
+          <div _ngcontent-c17="" class="col-sm-9" >
+            <input _ngcontent-c17="" id=" " class="form-control" type="text" name="nombre"   ngModel>
+
+          </div>
+        </div>
+
+
+        <div _ngcontent-c17="" class="form-group row">
+          <label _ngcontent-c17="" class="col-sm-3 col-form-label">Date activation</label>
+          <div _ngcontent-c17="" class="col-sm-9">
+            <input type="date" id=" " ng-model="DateArrivee" name="DateActivation" required min="{{today}}" ngModel>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark btn-square"  (click)="d('Cross click')">Annuler</button>
+          <button  type="submit"  [disabled]=" EnblaedDisabled !== 'enabled'"  class="btn btn-danger" > <span title=" elements deja bloqué(s)"><i class="icofont icofont-warning-alt"></i> </span>Valider</button>
+
+        </div>
+
+      </form>
+      <!-- /.panel-body -->
+    </div>
+
+  </ng-template>
+
+  <ng-template #Retour let-c="close" let-d="dismiss" >
+    <div class="modal-header" style="background-color: #DD4B39">
+      <h4 class="modal-title" style="color: white">Retourner les elements selectionnés?</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <form _ngcontent-c17="" class="ng-untouched ng-pristine ng-valid"  (ngSubmit)="Validerretour(aff);d('Cross click')" #aff="ngForm"  >
+
+
+        <input class="form-control" type="hidden" id="productpushret"  name="productpushret" value="">
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark btn-square"  (click)="d('Cross click')">Annuler</button>
+          <button  type="submit" id=" " [disabled]=" EnblaedDisabled !== 'enabled'"  class="btn btn-danger" > <span title=" elements deja bloqué(s)"><i class="icofont icofont-warning-alt"></i> </span>Retour</button>
+
+        </div>
+
+      </form>
+      <!-- /.panel-body -->
+    </div>
+
+  </ng-template>
+
+
+  <ng-template #Affectation let-c="close" let-d="dismiss" >
+    <div class="modal-header" style="background-color: #DD4B39">
+      <h4 class="modal-title" style="color: white">Affectation</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <form _ngcontent-c17="" class="ng-untouched ng-pristine ng-valid"  (ngSubmit)="ValiderAffectation(aff);d('Cross click')" #aff="ngForm"  >
+
+        <div  _ngcontent-c17="" class="form-group row" >
+          <label _ngcontent-c17="" class="col-sm-3 col-form-label" >Installateur </label>
+          <div _ngcontent-c17="" class="col-sm-8" >
+            <select _ngcontent-c17="" id="personal_id"  class="form-control" name="personal_id" ngModel>
+              <optgroup _ngcontent-c17="" label="Veuillez selectionner un installeur">
+                <option     *ngFor="let installer of installers" _ngcontent-c17="" value="{{installer.id}}" >{{installer.last_name}} {{installer.first_name }}</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+        <input class="form-control" type="hidden" id="productpush1" name="productpush1" value="">
+        <div  _ngcontent-c17="" class="form-group row" >
+          <label _ngcontent-c17="" class="col-sm-3 col-form-label" >Observation </label>
+          <div _ngcontent-c17="" class="col-sm-8" >
+            <textarea class="form-control" rows="5" id="observation" value="test" name="observation" ngModel></textarea>
+
+          </div>
+        </div>
+
+
+
+
+        <div class="checkbox" hidden>
+          <label><input type="checkbox" value="">Imprimer BL</label>
+        </div>
+
+        <div  _ngcontent-c17="" class="form-group row" hidden>
+          <label _ngcontent-c17="" class="col-sm-3 col-form-label" >date </label>
+          <div _ngcontent-c17="" class="col-sm-8" >
+            <input id="date" type="date" value=" ">
+
+          </div>
+        </div>
+
+        <br>   <br>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark btn-square"  (click)="d('Cross click')">Annuler</button>
+          <button type="submit" class="btn btn-danger" ><i class="icofont icofont-warning-alt"></i> Valider</button>
+        </div>
+      </form>
+      <!-- /.panel-body -->
+    </div>
+
+  </ng-template>
+  <ng-template #Transfert let-c="close" let-d="dismiss" >
+    <div class="modal-header" style="background-color: #DD4B39">
+      <h4 class="modal-title" style="color: white">Transférer les produits chosis</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <form _ngcontent-c17="" class="ng-untouched ng-pristine ng-valid"  (ngSubmit)="ValiderTransfert(aff);d('Cross click')" #aff="ngForm"  >
+
+
+        <input class="form-control" type="hidden" id="productpushtransf"  name="productpushtransf" value="">
+        <!--<div  _ngcontent-c17="" class="form-group row" hidden>-->
+        <!--<label _ngcontent-c17="" class="col-sm-3 col-form-label" >Ancien Installateur </label>-->
+        <!--<div _ngcontent-c17="" class="col-sm-8" >-->
+        <!--<input class="form-control"  id=" " [placeholder]=" 'test'" name="observation" readonly ngModel>-->
+
+        <!--</div>-->
+        <!--</div>-->
+
+        <div  _ngcontent-c17="" class="form-group row" >
+          <label _ngcontent-c17="" class="col-sm-3 col-form-label" >Nouveau Installateur </label>
+          <div _ngcontent-c17="" class="col-sm-8" >
+            <select _ngcontent-c17="" class="form-control" name="personal_id" ngModel>
+              <optgroup _ngcontent-c17="" label="Veuillez selectionner un installeur">
+                <option     *ngFor="let installer of installers" _ngcontent-c17="" value="{{installer.id}}" >{{installer.last_name}} {{installer.first_name }}</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+
+
+
+
+        <div class="checkbox" hidden>
+          <label><input type="checkbox" value="">Imprimer BL</label>
+        </div>
+
+
+
+        <br>   <br>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark btn-square"  (click)="d('Cross click')">Annuler</button>
+          <button type="submit" class="btn btn-success" ><i class="icofont icofont-warning-alt"></i> Valider</button>
+        </div>
+      </form>
+      <!-- /.panel-body -->
+    </div>
+
+  </ng-template>
+  <ng-template #Libere let-c="close" let-d="dismiss" >
+    <div class="modal-header" style="background-color: #DD4B39">
+      <h4 class="modal-title" style="color: white">Voulez vous  Liberer les elements sélectionnés ?</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <form _ngcontent-c17="" class="ng-untouched ng-pristine ng-valid"  (ngSubmit)="ValiderLiberation(aff); d('Cross click')" #aff="ngForm"  >
+
+
+        <input class="form-control" type="hidden" id="productpushLiberation" name="productpushLiberation" value="">
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark btn-square"  (click)="d('Cross click')">Annuler</button>
+          <button  type="submit" id=" "  class="btn btn-danger" > <span title=" elements deja bloqué(s)"><i class="icofont icofont-warning-alt"></i> </span>Liberer</button>
+
+        </div>
+
+      </form>
+      <!-- /.panel-body -->
+    </div>
+
+  </ng-template>
+  <ng-template #Blocage let-c="close" let-d="dismiss" >
+    <div class="modal-header" style="background-color: #DD4B39">
+      <h4 class="modal-title" style="color: white">Voulez vous  Bloquer les elements sélectionnés ?</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <form _ngcontent-c17="" class="ng-untouched ng-pristine ng-valid"  (ngSubmit)="Validerblocage(aff);d('Cross click')" #aff="ngForm"  >
+
+
+        <input class="form-control" type="hidden" id="productpush2" name="productpush2" value="">
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark btn-square"  (click)="d('Cross click')">Annuler</button>
+
+          <button  type="submit" id="bloquer" [disabled]=" EnblaedDisabled !== 'enabled'"  class="btn btn-danger" > <span title=" elements deja bloqué(s)"><i class="icofont icofont-warning-alt"></i> </span>  Bloquer</button>
+
+        </div>
+
+      </form>
+      <!-- /.panel-body -->
+    </div>
+
+  </ng-template>
+
+
+
+  <form _ngcontent-c17="" class="ng-untouched ng-pristine ng-valid" id="activ" name="activ" (ngSubmit)="Activation(act)" #act="ngForm" hidden>
+
+
+    <input class="form-control" type="hidden" id="productpush4" name="productpush4" value="">
+    <div class="modal-footer">
+
+      <button type="button" class="btn btn-warning btn-square"  (click)="d('Cross click')">Fermer</button>
+
+    </div>
+
+  </form>
+
+  <!-- /.panel-body -->
+
+
+  <ng-template #Deblocage let-c="close" let-d="dismiss" >
+    <div class="modal-header" style="background-color: #DD4B39">
+      <h4 class="modal-title" style="color: white">Voulez vous  Debloquer les elements selectionnés?</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <form _ngcontent-c17="" class="ng-untouched ng-pristine ng-valid"  (ngSubmit)="Validerdeblocage(aff);d('Cross click')" #aff="ngForm"  >
+
+
+        <input class="form-control" type="hidden" id="productpush3" name="productpush3" value="">
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark btn-square"  (click)="d('Cross click')">Annuler</button>
+
+          <button  type="submit" id="debloquer" [disabled]=" EnblaedDisabled !== 'enabled'"  class="btn btn-danger" > <span title=" elements deja bloqué(s)"><i class="icofont icofont-warning-alt"></i> </span>Débloquer</button>
+
+        </div>
+
+      </form>
+      <!-- /.panel-body -->
+    </div>
+
+  </ng-template>
+
+
+
+
+  <div _ngcontent-c6="" class="table-responsive">
+    <card cardTitle="Data Table">
+
+
+      <table id="listetable" _ngcontent-c6="" class="table table-hover" >
+        <thead _ngcontent-c6="">
+        <tr class='table-filters'>
+          <th class="text-center priority-1" style=" width: 11%;"> <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="{{result}}" type="text"> </th>
+          <th class="text-center priority-7" style="width: 11%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="fournisseur" type="text"></th>
+          <th class="text-center priority-7" style="width: 11%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="{{labelLigne}}" type="text"></th>
+          <th class="text-center priority-9" style="width: 11%;">  <input _ngcontent-c6="" class="form-control form-control-success"(click)="resizepage()" placeholder="{{modele}} " type="text"></th>
+          <th class="text-center priority-2" style="width: 11%;"> <input _ngcontent-c6="" type="date" class="form-control form-control-success" (click)="resizepage()"  placeholder="date" type="text"> </th>
+          <th class="text-center priority-3" style="width: 11%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Ref commande" type="text"></th>
+          <th class="text-center priority-3" style="width: 11%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Status" type="text"></th>
+          <th class="text-center priority-3" style="width: 11%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="State" type="text"></th>
+          <!--<th class="text-center priority-3" style="width: 9%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="installateur" type="text"></th>-->
+          <!--<th class="text-center priority-3" style="width: 9%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Matricule" type="text"></th>-->
+          <!--<th class="text-center priority-3" style="width: 9%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Sim installé" type="text"></th>-->
+
+          <th class="text-center priority-3" style=" "> <button class="btn  btn-outline-primary" (click)="open(content)"><i class="icofont icofont-ui-add"></i>Ajouter Produit</button>  </th>
+        <tr  id="liste">
+          <th  class="text-center priority-1" style=" width: 11%;"> <span> {{result}} </span></th>
+          <th class="text-center priority-1" style=" width: 11%;"> Fournisseur</th>
+          <th class="text-center priority-1" style=" width: 11%;"> {{labelLigne}}</th>
+          <th class="text-center priority-7" style="width: 11%;"> {{modele}} </th>
+          <th class="text-center priority-3" style="width: 11%;"> Date</th>
+          <th class="text-center priority-3" style="width: 11%;"> Réf.</th>
+          <th class="text-center priority-9" style="width: 11%;"> Status </th>
+          <th class="text-center priority-2" style="width: 11%;"> Etat </th>
+
+          <th class="text-center priority-3" style="width: 11%;"> Action </th>
+
+        </tr>
+        </thead>
+
+        <tbody _ngcontent-c6=""  id="liste2" >
+
+        <tr *ngFor= "let post of productdata|   paginate: { id:'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index" class='table-data'  >
+
+
+          <td (click)="openc(contentProduit,post.id,TypeCategorie,post.status)" style="text-align:center;" *ngIf="post.id!==EditRowId" >  {{ post.imei_product }}    </td>
+          <td (click)="openc(contentProduit,post.id,TypeCategorie,post.status)" style="text-align:center" > {{ post.name }}  </td>
+          <td (click)="openc(contentProduit,post.id,TypeCategorie,post.status)" style="text-align:center" > <span *ngIf="TypeCategorie==1">:</span>  <span *ngIf="TypeCategorie==2">{{ post.label}}</span>   </td>
+          <td (click)="openc(contentProduit,post.id,TypeCategorie,post.status)" style="text-align:center"  > {{ post.model }}   </td>
+          <td (click)="openc(contentProduit,post.id,TypeCategorie,post.status)" style="text-align:center">{{ post.enabled_date }}   </td>
+          <td (click)="openc(contentProduit,post.id,TypeCategorie,post.status)" style="text-align:center" >{{ post.order_ref }}    </td>
+
+
+          <td (click)="openc(contentProduit,post.id,TypeCategorie,post.status)" style="text-align:center" >
+            <span class="badge badge-pill badge-primary" *ngIf="1== post.status " >En stock</span>
+            <span class="badge badge-pill badge-warning" *ngIf="2== post.status " > En stock personnel</span>
+            <span class="badge badge-pill badge-danger" *ngIf="3== post.status ">Bloqué</span>
+            <span class="badge badge-pill badge-info" *ngIf="0== post.status ">Installé</span>
+            <span style="background: chocolate" class="badge badge-pill badge-success" *ngIf="4== post.status ">Retourné</span>
+
+          </td>
+
+          <td (click)="openc(contentProduit,post.id)" style="text-align:center"  > <span *ngIf="TypeCategorie==1">:</span>  <span *ngIf="TypeCategorie==2">
+                  <span *ngIf=" post.state== 'enabled'"> <span style="background: darkgreen" class="badge badge-pill badge-info" >{{ post.state}}</span> </span>
+                     <span  *ngIf=" post.state== 'disabled'"> <span style="background: orange" class="badge badge-pill badge-info" >{{ post.state}}</span> </span>
+
+              </span> </td>
+
+
+          <td style="text-align:center"   ><button type="button" class="btn-group-crop btn-outline-success" (click)="open(contentProduitUpdate)"><i class="icofont icofont-edit"></i></button>
+            <button type="button" class="btn-group-crop btn-outline-danger" (click)="opensm(contentProduitDelete, post.status,content2)"><i class="icofont icofont-ui-delete"></i></button>
+
+            <input type="checkbox" class="btn-group-crop btn-outline-secondary" value="{{post.id}}" style="zoom: 1.5" />
+
+          </td>
+
+          <ng-template #contentProduitUpdate let-c="close" let-d="dismiss">
+            <div class="modal-header" style="background-color: #4cd787">
+              <h4 class="modal-title" id="modal-basic-title" style="color: white">{{labelformUpdate}}</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <form method="post" action=""    name="form7" id="form7"  (ngSubmit)="onUpdate(f,post.id);d('Cross click')" #f="ngForm"  >
+
+                <div class="form-group" hidden>
+                  <label  class="col-form-label">Référence:</label>
+                  <select _ngcontent-c17="" id="" class="form-control" name="order_ref"  ngModel>
+                    <optgroup _ngcontent-c17="" label="Veuillez selectionner un fourniseur">
+                      <option  *ngFor="let refcommande of refData" _ngcontent-c17="" value="{{refcommande.order_ref}}" >{{refcommande.order_ref}}</option>
+                    </optgroup>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">{{result}}:</label>
+                  <input type="number" class="form-control"name="imei_product" [placeholder]=" post.imei_product " value='{{ post.imei_product }}' ngModel>
+                </div>
+
+                <div class="form-group" >
+                  <label class="col-form-label" > {{labelLigne}}:</label>
+                  <textarea class="form-control" [disabled]=" labelLigne != 'ligne'" id="labelUp" name="label"   value='{{ post.label }}' ngModel></textarea>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">{{modele}}:</label>
+                  <select _ngcontent-c17="" class="form-control" name="model"  ngModel>
+                    <optgroup _ngcontent-c17="" label="Veuillez selectionner le plan/modele">
+                      <option *ngFor="let dataplan of produitdata" _ngcontent-c17="" value="{{dataplan.plan_name}}">{{dataplan.plan_name}}</option>
+                    </optgroup>
+
+                  </select>
+                </div>
+                <!--<div class="form-group" hidden>-->
+                <!--<label  class="col-form-label">Reference</label>-->
+                <!--<input type="number" class="form-control"  formControlName="PrixVenteMin" value='{{ post.order_ref }}'>-->
+                <!--</div>-->
+
+                <div class="modal-footer">
+                  <button class="btn btn-dark" (click)="c('Close click')">Annuler</button>
+                  <button type="submit" value="Submit" class="btn btn-success"><i class="icofont icofont-edit"></i>Modifier</button>
+
+                </div>
+
+              </form>
+            </div>
+
+          </ng-template>
+
+          <ng-template #content2 let-c="close" let-d="dismiss">
+            <div class="modal-header" style="background-color: #DD4B39">
+              <h4 class="modal-title" style="color: white">Produit(s) installé(s) !!</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+
+            </div>
+
+            <div class="modal-body">
+              <!--<dl class="row">-->
+              <!--<dt class="col-sm-3">Ref Commande</dt>-->
+              <!--<dd class="col-sm-3">{{ post.order_ref }}</dd>-->
+              <!--<dt class="col-sm-3">Categorie</dt>-->
+              <!--<dd class="col-sm-3"> <span *ngIf="1==post.category_id"> Boitier</span>  <span *ngIf="2==post.category_id"> Carte sims </span> </dd>-->
+              <!--<br><br><br>-->
+
+              <!--<dt class="col-sm-3 text-truncate">Fournisseur</dt>-->
+              <!--<dd class="col-sm-9">{{ post.provider }}</dd>-->
+              <!--</dl>-->
+              <!-- /.panel-body -->
+            </div>
+
+            <div class="modal-footer">
+              <!--<button type="button" class="btn btn-danger btn-square"  (click)="delete(post)"  (click)="d('Cross click')"><i class="icofont icofont-warning-alt"></i> Delete</button>-->
+              <button type="button" class="btn btn-warning btn-square"  (click)="d('Cross click')">Fermer</button>
+            </div>
+          </ng-template>
+
+          <ng-template #contentProduitDelete let-c="close" let-d="dismiss" >
+            <div class="modal-header" style="background-color: #DD4B39">
+              <h4 class="modal-title" style="color: white">Supprimer Produit</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <dl class="row">
+                <dt class="col-sm-3">Réf. Commande</dt>
+                <dd class="col-sm-3">{{ post.order_ref }}</dd>
+                <dt class="col-sm-3">Imei</dt>
+                <dd class="col-sm-3">{{ post.imei_product }}</dd>
+                <br><br><br>
+
+                <dt class="col-sm-3 text-truncate" hidden>Description Produit</dt>
+                <dd class="col-sm-9"hidden>{{ post.DescriptionProduit }}</dd>
+                <br><br><br>
+
+                <dt class="col-sm-3">Fournisseur</dt>
+                <dd class="col-sm-3">{{ post.name }}</dd>
+
+
+              </dl>
+              <!-- /.panel-body -->
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-dark btn-square"  (click)="d('Cross click')">Annuler</button>
+              <button type="button" class="btn btn-danger btn-square" (click)="delete(post);d('Cross click')"><i class="icofont icofont-warning-alt"></i> Supprimer</button>
+            </div>
+          </ng-template>
+
+          <ng-template #contentProduit let-c="close" let-d="dismiss">
+            <div class="modal-header" style="background-color: #00AEEF">
+              <h4 class="modal-title" style="color: white">Détail Produit</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div *ngFor="let p of dataProductInstaller" class="modal-body">
+              <dl class="row">
+                <dt class="col-sm-3"> Imei/SSID</dt>
+                <dd class="col-sm-3">{{ post.imei_product }}</dd>
+                <dt class="col-sm-3">Forunisseur</dt>
+                <dd class="col-sm-3" >{{ post.name }}</dd>
+                <br><br><br>
+
+                <dt class="col-sm-3 text-truncate">Modèle</dt>
+                <dd class="col-sm-3">{{ post.model }}</dd>
+                <dt class="col-sm-3">Date arrivée</dt>
+                <dd class="col-sm-3">{{ post.created_at }}</dd>
+
+                <br><br><br>
+
+
+                <dt class="col-sm-3"> Ref Commande:</dt>
+                <dd class="col-sm-9">{{ post.order_ref }}   </dd>
+                <br><br><br>
+                <dt class="col-sm-3"  style=" ">Observation</dt>
+                <dd class="col-sm-9 p-3 mb-2 bg-success text-white"> {{ post.observtion }}</dd>
+                <br><br><br><br><br>
+
+                <dt class="col-sm-3">Installateur</dt>
+                <dd class="col-sm-3">
+                  <!--<span *ngIf="1== post.install "> Hamza</span>-->
+                  <!--<span *ngIf="2== post.install "> Zakaria</span>-->
+                  <!--<span *ngIf="3== post.install "> Autre</span>-->
+                  <!--<span  *ngIf=" null== post.install "> &#45;&#45; &#45;&#45; </span>-->
+                  {{ p.last_name }}  {{ p.first_name }}
+
+                </dd>
+                <dt class="col-sm-3">Matricule</dt>
+                <dd class="col-sm-3">{{p.imei}} </dd>
+                <br><br><br>
+                <dt class="col-sm-3">Etat Produit</dt>
+                <dd class="col-sm-3">
+                  <span class="badge badge-pill badge-info" *ngIf="0== post.status " >Installé</span>
+                  <span class="badge badge-pill badge-primary" *ngIf="1== post.status " >En stock</span>
+                  <span class="badge badge-pill badge-warning" *ngIf="2== post.status " >En stock personnel</span>
+                  <span class="badge badge-pill badge-danger" *ngIf="3== post.status ">Bloqué</span>
+                </dd>
+
+                <dt class="col-sm-3">state</dt>
+                <dd class="col-sm-3"><span class="badge badge-info" >{{ post.state}}</span> </dd>
+
+                <br><br>
+              </dl>
+              <!-- /.panel-body -->
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" (click)="c('Close click')">Fermer</button>
+            </div>
+          </ng-template>
+
+        </tr>
+
+
+
+        </tbody>
+
+
+      </table>
+
+
+      <form class="pagination-wrapper">
+        <div class="form-group pages" style="margin-left: 8px">
+          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)"  directionLinks="true"
+                               autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                               screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+        </div>
+        <div class="form-group options pages" style="margin-right: 8px">
+          <div class="input-group input-group-sm">
+            <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="d('Cross click')">
+              <option>1</option>
+              <option>5</option>
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+              <option>100</option>
+              <option>200</option>
+            </select>
+            <span class="input-group-addon addon-right">Page</span>
+          </div>
+        </div>
+      </form>
+
+
+    </card>
+  </div>
+</card>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header" style="background-color: #4cd787">
+    <h4 class="modal-title" id="modal-basic-title" style="color: white">{{labelform}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form _ngcontent-c17="" class="ng-untouched ng-pristine ng-valid" (ngSubmit)="onSubmit(fm);d('Cross click')" #fm="ngForm"  >
+      <!--formularei-->
+      <div>
+
+
+        <div _ngcontent-c17="" class="form-group row" hidden="">
+          <label _ngcontent-c17="" class="col-sm-2 col-form-label" name="categorie" >Catégorie</label>
+          <div _ngcontent-c17="" class="col-sm-9" style="background-color: #D9DCDE">
+            <span  > {{TypeCategorie}}</span>
+
+            <!--<input _ngcontent-c17="" id="category_id" class="form-control" type="text" name="category_id" value='{{TypeCategorie}}' readonly>-->
+          </div>
+        </div>
+
+        <!--<div _ngcontent-c17="" class="form-group row" hidden>-->
+        <!--<label _ngcontent-c17="" class="col-sm-2 col-form-label"   >Ref commande</label>-->
+        <!--<div _ngcontent-c17="" class="col-sm-10">-->
+        <!--<input _ngcontent-c17="" id="order_ref" class="form-control" type="text" name="order_ref"  [(ngModel)]="140">-->
+        <!--</div>-->
+        <!--</div>-->
+
+
+        <div  _ngcontent-c17="" class="form-group row" >
+          <label _ngcontent-c17="" class="col-sm-2 col-form-label" >{{result}} </label>
+          <div _ngcontent-c17="" class="col-sm-10" >
+            <input _ngcontent-c17="" id="imei_product" class="form-control" type="text" name="imei_product"   ngModel>
+
+          </div>
+        </div>
+
+
+
+        <div _ngcontent-c17="" class="form-group row"  id="modelePlan"  >
+          <label _ngcontent-c17="" class="col-sm-2 col-form-label" >{{labelLigne}}</label>
+          <div _ngcontent-c17="" class="col-sm-10">
+            <input _ngcontent-c17="" id=" " class="form-control"  [disabled]=" labelLigne != 'ligne'"  type="text" name="label"   ngModel>
+            <!--<input _ngcontent-c17="" id="imei_produtc" class="form-control" type="text" name="imei_produtc"  ngModel required >-->
+
+          </div>
+        </div>
+
+
+        <div  _ngcontent-c17="" class="form-group row" >
+          <label _ngcontent-c17="" class="col-sm-2 col-form-label" >{{modele}} </label>
+          <div _ngcontent-c17="" class="col-sm-10" >
+            <select _ngcontent-c17="" id="model" class="form-control" name="model" ngModel>
+              <optgroup _ngcontent-c17="" label="Veuillez selectionner un plan">
+                <option *ngFor="let dataplan of produitdata" _ngcontent-c17="" value="{{dataplan.plan_name}}">{{dataplan.plan_name}}</option>
+              </optgroup>
+
+            </select>
+
+          </div>
+        </div>
+
+        <div _ngcontent-c17="" class="form-group row">
+          <label _ngcontent-c17="" class="col-sm-2 col-form-label">Date_Arrivée</label>
+          <div _ngcontent-c17="" class="col-sm-10">
+            <input type="date" id="DateArrivee" ng-model="DateArrivee" name="DateArrivee" required min="{{today}}" ngModel>
+          </div>
+        </div>
+
+
+
+        <div _ngcontent-c17="" class="form-group row" hidden>
+          <label _ngcontent-c17="" class="col-sm-2 col-form-label">Status </label>
+          <div _ngcontent-c17="" class="col-sm-10">
+            <input _ngcontent-c17="" id="status" class="form-control" type="text" name="status" value="1"  ngModel >
+          </div>
+        </div>
+
+        <div _ngcontent-c17="" class="form-group row" hidden>
+          <label _ngcontent-c17="" class="col-sm-2 col-form-label">state </label>
+          <div _ngcontent-c17="" class="col-sm-10">
+            <input _ngcontent-c17="" id="state" class="form-control" type="text" name="state" value="0" disabled="disabled"  ngModel>
+          </div>
+        </div>
+
+
+
+
+      </div>
+
+
+      <!--formulaiare-->
+
+
+      <div class="modal-footer">
+        <button class="btn btn-dark" (click)="c('Close click')">Annuler</button>
+        <button type="submit" class="btn btn-success" ><i class="icofont icofont-ui-add" (click)=" d('Cross click')"></i>Ajouter</button>
+        <!--<button type="submit"   data-toggle="modal" data-target="#bootstrapModel" ><i class="icofont icofont-ui-add"></i>Add</button>-->
+      </div>
+
+
+    </form>
+
+  </div>
+
+</ng-template>
+
+<ng2-toasty [position]="position"></ng2-toasty>

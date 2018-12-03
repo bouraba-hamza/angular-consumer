@@ -1,0 +1,60 @@
+<!--
+<div  (eventEmitter1)="receiveMessage($event)" >
+    message :
+</div>
+
+
+<div id='div_connection'>
+ 
+
+<span id='span_connection_state'>
+    etat internet :
+</span>
+
+<span *ngIf="val_connection_state == 'offline'  ">
+    <span  class="connection_off">{{val_connection_state}}</span>
+</span>
+
+<span *ngIf="val_connection_state == 'online'  ">
+    <span  class="connection_on">{{val_connection_state}}</span>
+</span>
+
+
+</div>
+
+
+
+
+
+
+<ng-template #contentSaveOffline let-c="close" let-d="dismiss"   >
+      <div id="skull_div_backup_offline">
+         <div id="div_backup_offline">
+           <h3>Bloc Sauvegarde Horsligne</h3>
+         </div>  
+      </div>
+ </ng-template>
+
+
+
+
+<div id="div_current_list_load_parsed">
+ <div class="div_current_list_load_parsed_elements" *ngFor="let item of current_list_load_parsed_viewHtml">
+        {{ item }}
+ </div>  
+</div>
+
+ 
+
+
+
+ <ng-template #contentBackupOnline let-c="close" let-d="dismiss"   >
+    <div id="skull_div_backup_offline">
+       <div id="div_backup_offline">
+         <h3>Bloc Mise à Jour</h3>
+       </div>  
+    </div>
+</ng-template>
+
+
+-->

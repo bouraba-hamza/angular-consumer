@@ -1,0 +1,428 @@
+<card [classHeader]="true" [blockClass]="'table-border-style'" >
+  <div _ngcontent-c6="" id="contenant"  class="table-responsive">
+    <card cardTitle="Data Table">
+      <table _ngcontent-c6="" class="table table-hover" >
+        <thead _ngcontent-c6="">
+            <tr class='table-filters'>
+              <th class="text-center priority-1" style=" width: 15%;"> <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Categorie" type="text"> </th>
+              <th class="text-center priority-7" style="width: 15%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Ref" type="text"></th>
+              <th class="text-center priority-9" style="width: 15%;">  <input _ngcontent-c6="" class="form-control form-control-success"(click)="resizepage()" placeholder="Date arrivée " type="text"></th>
+              <th class="text-center priority-2" style="width: 15%;"> <input _ngcontent-c6="" type="date" class="form-control form-control-success" (click)="resizepage()"  placeholder="Fournisseur" type="text"> </th>
+              <th class="text-center priority-2" style="width: 15%;"> <input _ngcontent-c6="" type="date" class="form-control form-control-success" (click)="resizepage()"  placeholder="Plan/modele" type="text"> </th>
+              <th class="text-center priority-3" style="width: 15%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Quantité" type="text"></th>
+              <th class="text-center priority-3" style="width: 15%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Etat" type="text"></th>
+              <th class="text-center priority-3" style=" "> <button  class="btn  btn-outline-primary" (click)="openadd(content)"><i class="icofont icofont-ui-add"></i>Ajouter Commande</button>  </th>
+            </tr>
+            <tr >
+              <th class="text-center priority-1" style=" width: 12.5%; "> Catégorie</th>
+              <th class="text-center priority-7" style="width: 12.5%;"> Réf. commande </th>
+              <th class="text-center priority-3" style="width:12.5%;"> Date_arrivée</th>
+              <th class="text-center priority-3" style="width: 12.5%;"> Fournisseur </th>
+              <th class="text-center priority-3" style="width: 12.5%;"> Plan/modèle </th>
+              <th class="text-center priority-9" style="width: 12.5%;"> Quantité </th>
+              <th class="text-center priority-2" style="width: 12.5%;"> Etat </th>
+              <th class="text-center priority-3" style="width: 12.5%;"> Action  </th>
+            </tr>
+        </thead>
+        <tbody >
+            <tr *ngFor="let post of commandedata | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index" class='table-data'>
+              <td class="text-center priority-3" *ngIf="post.id===EditRowId"  style="background-color: #7ee2a8" >
+                  <input  type="text" class="form-control" name="category_id"   [(ngModel)]="post.category_id">
+              </td>
+              <td class="text-center priority-3"  *ngIf="post.id!==EditRowId" (click)="open(contentProduit,post)">
+                <span *ngIf="2==post.category_id"> carte sim</span>
+                <span *ngIf="1==post.category_id"> Boitier</span>
+              </td>
+              <td class="text-center priority-3"  *ngIf="post.id===EditRowId" style="background-color: #7ee2a8" >
+                <select _ngcontent-c17="" class="form-control" name="order_ref" [(ngModel)]="post.order_ref">
+                  <optgroup _ngcontent-c17="" label="Veuillez selectionner un fournisseur">
+                    <option  *ngFor="let comm of commandedata" _ngcontent-c17="" value="{{comm.order_ref}}">{{comm.order_ref}}</option>
+                  </optgroup>
+                </select>
+              </td>
+              <td class="text-center priority-3"  *ngIf="post.id!==EditRowId" (click)="open(contentProduit,post)">{{ post.order_ref }}</td>
+              <td class="text-center priority-3"  *ngIf="post.id===EditRowId" style="background-color: #7ee2a8" >
+                <input type="date" name="DateArrivee"  ng-model="DateArrivee"  required min="{{today}}"  [(ngModel)]="post.date_arrived">
+              </td>
+              <td class="text-center priority-3"  *ngIf="post.id!==EditRowId" (click)="open(contentProduit,post)">{{ post.date_arrived }}</td>
+              <td class="text-center priority-3"  *ngIf="post.id!==EditRowId" (click)="open(contentProduit,post)" >{{ post.name }}</td>
+              <td class="text-center priority-3"  *ngIf="post.id===EditRowId" style="background-color: #7ee2a8" ><input type="text" name="PlanModele"  [(ngModel)]="post.plan">  </td>
+              <td class="text-center priority-3"  *ngIf="post.id!==EditRowId" (click)="open(contentProduit,post)">{{ post.plan }}</td>
+              <td class="text-center priority-3"  *ngIf="post.id===EditRowId" style="background-color: #7ee2a8" ><input type="text" name="quantite" [(ngModel)]="post.quantity">  </td>
+              <td class="text-center priority-3"  *ngIf="post.id!==EditRowId" (click)="open(contentProduit,post)">{{ post.quantity }} </td>
+              <td class="text-center priority-3" >
+                <span class="badge badge-pill badge-primary"  >{{ post.observtion }}</span>
+              </td>
+              <td style="text-align:center"   >
+                <button type="button" class="btn btn-outline-success" (click)="openup( post.observtion,contentUpdate,content2)" title="Edit" ><i class="icofont icofont-edit"></i></button>
+                <button type="button" class="btn btn-outline-danger" (click)="opensm(post.observtion,contentCommandeDelete,content2)" title="Delete" ><i class="icofont icofont-ui-delete"></i></button>
+              </td>
+
+              <button type="button" id="comp" class="btn btn-primary" style="display: none" (click)="openVerif(verif)">
+                    Créer un template modal</button>
+
+              <ng-template #verif let-c="close" let-d="dismiss" >
+                <div class="modal-header" style="background-color: #DD4B39">
+                  <h4 class="modal-title" style="color: white">{{infoQuantite}}</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-dark btn-square"  (click)="d('Cross click')">Annuler</button>
+                  <button  type="button"  class="btn btn-succes" (click)="confirmer();d('Cross click')" ><i class="icofont icofont-warning-alt"></i>Confirmer l'ajout </button>
+                </div>
+              </ng-template>
+
+              <button type="button" id="compUpdate" class="btn btn-primary" style="display: none" (click)="openVerif(verifUpdate)">Créer un template modal</button>
+
+              <ng-template #verifUpdate let-c="close" let-d="dismiss" >
+                <div class="modal-header" style="background-color: #DD4B39">
+                  <h4 class="modal-title" style="color: white">Modification: {{infoQuantite}}</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-dark btn-square"  (click)="d('Cross click')">Annuler</button>
+                  <button  type="button"  class="btn btn-succes" (click)="confirmerUpdtae();d('Cross click')" ><i class="icofont icofont-warning-alt"></i>Confimer l'ajout </button>
+                </div>
+              </ng-template>
+
+              <ng-template #contentUpdate let-c="close" let-d="dismiss">
+                    <div class="modal-header" style="background-color: #4cd787">
+                        <h4 class="modal-title" id="modal-basic-title" style="color: white">Modifier commande</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form _ngcontent-c17="" class="ng-untouched ng-pristine ng-valid" [formGroup]="myformupdate" (ngSubmit)="updateCommandes(post.id,post.provider,post.order_ref,post.date_arrived,post.plan,post.category_id,post.quantity,post.BienID,post.user_id,$event);c('Close click');" >
+                            <div>
+                                <div _ngcontent-c17="" class="form-group row" >
+                                    <label _ngcontent-c17="" class="col-sm-2 col-form-label">Catégorie</label>
+                                    <div _ngcontent-c17="" class="col-sm-10">
+                                        <select #t (change)="changecategorie(t.value)" _ngcontent-c17=""  class="form-control"  formControlName="category_id" value="{{post.category_id}}" >
+                                            <optgroup _ngcontent-c17="" label="Veuillez selectionner une categorie">
+                                                <option _ngcontent-c17="" value="1">Boitiers</option>
+                                                <option _ngcontent-c17="" value="2" >Cartes sim </option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div _ngcontent-c17="" class="form-group row">
+                                    <label _ngcontent-c17="" class="col-sm-2 col-form-label">Réf. commande</label>
+                                    <div _ngcontent-c17="" class="col-sm-10">
+                                        <input type="text" class="form-control"  value="{{post.order_ref}}" formControlName="order_ref"  >
+                                    </div>
+                                </div>
+
+                                <div _ngcontent-c17="" class="form-group row">
+                                    <label _ngcontent-c17="" class="col-sm-2 col-form-label">Fournisseur</label>
+                                    <div _ngcontent-c17="" class="col-sm-10">
+                                        <select id="fournisseur" class="form-control"  formControlName="provider" value="{{post.provider}}">
+                                            <option *ngFor="let postprovider of providerData" _ngcontent-c17="" value="{{postprovider.id_provider}}">{{postprovider.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div _ngcontent-c17="" class="form-group row">
+                                    <label _ngcontent-c17="" class="col-sm-2 col-form-label">Plan/Modèle</label>
+                                    <div _ngcontent-c17="" class="col-sm-10" >
+                                        <select _ngcontent-c17=""  class="form-control" formControlName="plan"  ngModel value="{{post.plan_name}}">
+                                            <optgroup _ngcontent-c17="" label="Veuillez selectionner le plan/modele"  >
+                                                <option *ngFor="let dataplan of produitdata" _ngcontent-c17="" value="{{dataplan.id}}">{{dataplan.plan_name}}</option>
+                                            </optgroup>
+                                        </select>
+                                        <br>
+                                        <input type="checkbox" (change)="Newplan($event)" name="planselected"  value="0">
+                                        <label for="newplan"> Ajouter nouveau plan</label>
+                                        <input type="text"  class="form-control"  name="newplan"  style="display: none;" >
+                                    </div>
+                                </div>
+
+                                <div _ngcontent-c17="" class="form-group row">
+                                    <label _ngcontent-c17="" class="col-sm-2 col-form-label">Quantité</label>
+                                    <div _ngcontent-c17="" class="col-sm-10">
+                                        <input type="text" class="form-control"  value='{{post.quantity}}' formControlName="quantity" >
+                                    </div>
+                                </div>
+
+                                <div _ngcontent-c17="" class="form-group row">
+                                    <label _ngcontent-c17="" class="col-sm-2 col-form-label">Date </label>
+                                    <div _ngcontent-c17="" class="col-sm-10">
+                                        <input type="date" ng-model="DateArrivee" value="{{post.date_arrived}}" formControlName="date_arrived" required min="{{today}}" >
+                                    </div>
+                                </div>
+
+                                <div _ngcontent-c17="" class="form-group row " hidden>
+                                    <label _ngcontent-c17="" class="col-sm-2 col-form-label">BienID</label>
+                                    <div _ngcontent-c17="" class="col-sm-10">
+                                        <input id="BienID" class="form-control" type="text" placeholder="" formControlName="BienID"  >
+                                    </div>
+                                </div>
+
+                                <div _ngcontent-c17="" class="form-group row " hidden>
+                                    <label _ngcontent-c17="" class="col-sm-2 col-form-label">ID_utilisateur</label>
+                                    <div _ngcontent-c17="" class="col-sm-10">
+                                        <input id="user_id" class="form-control" type="text" placeholder="" formControlName="user_id"  >
+                                    </div>
+                                </div>
+
+                                <div _ngcontent-c17="" class="form-group row">
+                                    <label _ngcontent-c17="" class="col-sm-2 col-form-label"> Télécharger fichier </label>
+                                    <div _ngcontent-c17="" class="col-sm-10">
+                                        <input _ngcontent-c17=""  id="filesUp" class="form-control" type="file" name="files" #uploads  multiple
+                                               value="process" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-dark" (click)="c('Close click')">Annuler</button>
+                                <button type="submit" class="btn btn-success" ><i class="icofont icofont-edit"></i>Modifier</button>
+                            </div>
+                        </form>
+                    </div>
+                </ng-template>
+
+              <ng-template #content2 let-c="close" let-d="dismiss">
+                <div class="modal-header" style="background-color: #DD4B39">
+                  <h4 class="modal-title" style="color: white">Commande déjà en stock !!</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-dark btn-square"  (click)="d('Cross click')">Annuler</button>
+                </div>
+              </ng-template>
+
+              <ng-template #contentCommandeDelete let-c="close" let-d="dismiss">
+                <div class="modal-header" style="background-color: #DD4B39">
+                  <h4 class="modal-title" style="color: white">Supprimer Commande</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <dl class="row">
+                    <dt class="col-sm-3">Réf. Commande</dt>
+                    <dd class="col-sm-3">{{ post.order_ref }}</dd>
+                    <dt class="col-sm-3">Catégorie</dt>
+                    <dd class="col-sm-3"> <span *ngIf="1==post.category_id"> Boitiers</span>  <span *ngIf="2==post.category_id"> Cartes sim </span> </dd>
+                    <br><br><br>
+                    <dt class="col-sm-3 text-truncate">Fournisseur</dt>
+                    <dd class="col-sm-9">{{ post.provider }}</dd>
+                  </dl>
+                  <!-- /.panel-body -->
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-dark btn-square"  (click)="d('Cross click')">Annuler</button>
+                  <button type="button" class="btn btn-danger btn-square"  (click)="delete(post)"  (click)="d('Cross click')"><i class="icofont icofont-warning-alt"></i> Supprimer</button>
+                </div>
+              </ng-template>
+
+              <ng-template #contentProduit let-c="close" let-d="dismiss">
+                <div class="modal-header" style="background-color: #00AEEF">
+                  <h4 class="modal-title" style="color: white">Détail Commande</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <dl class="row">
+                    <dt class="col-sm-3">Catégorie</dt>
+                    <dd class="col-sm-3"> <span *ngIf="2== post.category_id">carte sim </span>  <span *ngIf="1== post.category_id">Boitier </span></dd>
+                    <dt class="col-sm-3">Réf. Commande</dt>
+                    <dd class="col-sm-3">{{ post.order_ref }}</dd>
+                    <br><br><br>
+                    <dt class="col-sm-3">Date </dt>
+                    <dd class="col-sm-3">{{ post.date_arrived }}</dd>
+                    <dt class="col-sm-3">fournisseur</dt>
+                    <dd class="col-sm-3">{{ post.name }}</dd>
+                    <br><br><br>
+                    <dt class="col-sm-3">Plan/Modele</dt>
+                    <dd class="col-sm-3">{{ post.plan}}</dd>
+                    <dt class="col-sm-3">Quantité</dt>
+                    <dd class="col-sm-3">{{ post.quantity}}</dd>
+                    <br><br><br>
+                  </dl>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-light" (click)="c('Close click')">Fermer</button>
+                </div>
+              </ng-template>
+
+              <ng-template #confirm let-c="close" let-d="dismiss">
+                <div class="modal-header" style="background-color: #00AEEF">
+                  <h4 class="modal-title" style="color: white">Confirmer Commande</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-light" (click)="c('Close click')">Fermer</button>
+                </div>
+              </ng-template>
+            </tr>
+        </tbody>
+      </table>
+      <form class="pagination-wrapper">
+        <div class="form-group pages" style="margin-left: 8px">
+          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)"  directionLinks="true"
+                               autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                               screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+        </div>
+        <div class="form-group options pages" style="margin-right: 8px">
+          <div class="input-group input-group-sm">
+            <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="getCommande()">
+              <option>1</option>
+              <option>5</option>
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+              <option>100</option>
+              <option>200</option>
+            </select>
+            <span class="input-group-addon addon-right">Page</span>
+          </div>
+        </div>
+      </form>
+    </card>
+  </div>
+</card>
+
+<ng-template #content let-c="close" let-d="dismiss">
+
+  <div class="modal-header" style="background-color: #4cd787">
+    <h4 class="modal-title" id="modal-basic-title" style="color: white">Ajouter Commande</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form _ngcontent-c17="" id="formS" class="ng-untouched ng-pristine ng-valid" (ngSubmit)="onSubmit(fm,$event);c('Close click');" #fm="ngForm"  >
+      <!--formularei-->
+
+      <!--formulaiare-->
+
+      <div class="form-group">
+
+        <label class="col-form-label">Catégorie </label><span _ngcontent-c4="" class="col-form-label" style="color: red"> *  </span>
+        <select #t (change)="changecategorie(t.value)" _ngcontent-c17=""  class="form-control"  name="Categorie" ngModel>
+          <optgroup _ngcontent-c17="" label="Veuillez selectionner une categorie">
+            <option _ngcontent-c17="" value="1">Boitiers</option>
+            <option _ngcontent-c17="" value="2" >Cartes sim </option>
+          </optgroup>
+
+        </select>
+
+        <label class="col-form-label">Réf. commande </label><span _ngcontent-c4="" class="col-form-label" style="color: red"> *  </span>
+
+        <input    [placeholder]=" 'important!' "  class="form-control" type="text" name="RefCommande"  ngModel required >
+
+        <label class="col-form-label">Fournisseur</label><span _ngcontent-c4="" class="col-form-label" style="color: red"> * </span>
+
+        <select _ngcontent-c10=""  class="form-control" name="fournisseur" ngModel>
+          <optgroup _ngcontent-c10="" label="Veuillez selectionner un fournisseur">
+            <option  *ngFor="let postprovider of providerByCategorie" _ngcontent-c17="" value="{{postprovider.name}}">{{postprovider.name}}</option>
+          </optgroup>
+
+        </select>
+
+        <label class="col-form-label">Plan/Modèle</label>
+        <select _ngcontent-c10="" id="PlanModele" class="form-control" name="PlanModele" ngModel>
+          <optgroup _ngcontent-c10="" label="Veuillez selectionner le plan/modele"  >
+            <option *ngFor="let dataplan of produitdata" _ngcontent-c17="" value="{{dataplan.plan_name}}">{{dataplan.plan_name}}</option>
+
+          </optgroup>
+
+        </select>
+        <br>
+        <input type="checkbox" id="planselected" (change)="Newplan($event)"    name="planselected"  value="0">
+        <label for="newplan"> Ajouter nouveau plan</label>
+        <input type="text" id="newplan" class="form-control"  name="newplan"  style="display: none;" ngModel>
+
+          <br>
+
+        <label class="col-form-label">Quantité</label><span _ngcontent-c4="" class="col-form-label" style="color: red"> *  </span>
+        <input  id="quantite" class="form-control" type="text" name="quantite" ngModel>
+
+
+
+
+        <label class="col-form-label">Date_arrivée</label>
+        <input  class="form-control" type="date" id="DateArrivee" ng-model="DateArrivee" name="DateArrivee" required min="{{today}}" ngModel>
+
+
+
+
+        <label class="col-form-label">Etat</label>
+        <input id="etat" class="form-control" type="text" placeholder="" name="Etat" readonly ngModel>
+
+
+
+
+
+        <label class="col-form-label">BienID</label>
+        <input id="BienID" class="form-control" type="text" placeholder="" name="BienID" readonly ngModel>
+
+
+        <label class="col-form-label">ID_utilisateur</label>
+        <input id="user_id" class="form-control" type="text" placeholder="" name="user_id" readonly ngModel>
+
+
+        <label class="col-form-label" style="color: #00ACED;font-weight: bold">Importer Commande</label><br>
+
+
+        <div id="uplaod_div_file" (click)="clicker()">
+          <div id="upload_cercle_file">
+            <i id="upload_icon" class="fas fa-upload"></i>
+          </div>
+          <p>Import and enjoy !!</p>
+        </div>
+        <input id="files" (change)="file_change()" class="form-control file_loader" type="file" name="files" #uploads  multiple
+                 value="process" style="display: none;" >
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-dark" (click)="c('Close click')">Annuler</button>
+        <button type="submit" class="btn btn-outline-success"  ><i class="icofont icofont-ui-add"></i></button>
+      </div>
+
+
+    </form>
+
+
+
+  </div>
+  <div class="modal-footer">
+
+    <!--<ng-template #template>-->
+    <!--<div class="modal-header">-->
+    <!--<h4 class="modal-title pull-left">Modal</h4>-->
+    <!--<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">-->
+    <!--<span aria-hidden="true">&times;</span>-->
+    <!--</button>-->
+    <!--</div>-->
+    <!--<div class="modal-body">-->
+    <!--This is a modal.-->
+    <!--</div>-->
+    <!--</ng-template>-->
+    <!--<button type="submit"   data-toggle="modal" data-target="#bootstrapModel" ><i class="icofont icofont-ui-add"></i>Add</button>-->
+  </div>
+
+</ng-template>
+
+<ng2-toasty [position]="position"></ng2-toasty>
+
+

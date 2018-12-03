@@ -1,0 +1,295 @@
+<!--<card [title]="'Liste des Commandes'" [classHeader]="true" [blockClass]="'table-border-style'">-->
+
+  <!--<input type="file" (change)="onFileChange($event)" multiple="false" />-->
+
+
+  <!--<table class="sjs-table" >-->
+    <!--<tr *ngFor="let post of movementExcel">-->
+      <!--<td >-->
+        <!--{{post}}-->
+      <!--</td>-->
+    <!--</tr>-->
+  <!--</table>-->
+  <!--<button (click)="export()">Exporter commande</button>-->
+
+<!--</card>-->
+
+
+
+<card [title]="'Liste des commandes'" [classHeader]="true" [blockClass]="'table-border-style'">
+
+
+
+  <div _ngcontent-c6="" class="table-responsive">
+    <card cardTitle="Data Table">
+
+      <table _ngcontent-c6=""  class="table table-hover" >
+        <thead _ngcontent-c6="">
+        <tr class='table-filters'>
+          <th class="text-center priority-1" style=" width: 3%;"> <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Ref Produit" type="text"> </th>
+          <th class="text-center priority-7" style="width: 8%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Nom Produit" type="text"></th>
+          <th class="text-center priority-9" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success"(click)="resizepage()" placeholder="Prix Vente " type="text"></th>
+          <th class="text-center priority-2" style="width: 5%;"> <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="TVA Produit" type="text"> </th>
+          <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Etat Vente" type="text"></th>
+          <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Etat Achat" type="text"></th>
+          <th class="text-center priority-3" style="width: 5%;"> <button class="btn  btn-outline-primary" (click)="open(content)"><i class="icofont icofont-ui-add"></i>Ajouter une commande</button>  </th>
+        <tr>
+          <th class="text-center priority-1" style=" width: 1%;"> Catégorie.</th>
+          <th class="text-center priority-7" style="width: 8%;"> REF COMMANDE  </th>
+          <th class="text-center priority-9" style="width: 5%;"> DATE ARRIVÉE  </th>
+          <th class="text-center priority-2" style="width: 5%;"> FOURNISSEUR  </th>
+          <th class="text-center priority-3" style="width: 5%;"> QUANTITÉ </th>
+          <th class="text-center priority-3" style="width: 5%;">  Etat  </th>
+          <th class="text-center priority-3" style="width: 5%;"> Action  </th>
+        </tr>
+        </thead>
+        <tbody _ngcontent-c6="">
+        <tr *ngFor="let post of movementData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index" class='table-data'>
+
+          <td (click)="open(contentProduit,post)" style="text-align:center" *ngIf=" post.category_id==1 ">Boitier</td>
+
+          <td (click)="open(contentProduit,post)" style="text-align:center" *ngIf=" post.category_id==2 ">Carte Sim</td>
+          <td (click)="open(contentProduit,post)" style="text-align:center">{{ post.order_ref }}</td>
+          <td (click)="open(contentProduit,post)" style="text-align:center">{{ post.date_arrived }}</td>
+          <td (click)="open(contentProduit,post)" style="text-align:center">{{ post.provider }}</td>
+          <td (click)="open(contentProduit,post)" style="text-align:center">{{ post.quantity }}</td>
+          <td (click)="open(contentProduit,post)" style="text-align:center">{{ post.observtion }}</td>
+
+          <td style="text-align:center"   ><button type="button" class="btn btn-outline-success" (click)="open(contentProduitUpdate)"><i class="icofont icofont-edit"></i>Edit</button>
+            <button type="button" class="btn btn-outline-danger" (click)="opensm(contentProduitDelete)"><i class="icofont icofont-ui-delete"></i>Delete</button></td>
+
+
+          <ng-template #contentProduitDelete let-c="close" let-d="dismiss">
+            <div class="modal-header" style="background-color: #DD4B39">
+              <h4 class="modal-title" style="color: white">Supprimer une Commande</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <dl class="row">
+                <dt class="col-sm-3">Categorie</dt>
+                <dd class="col-sm-3">{{  post.category_id}}
+                </dd>
+                <dt class="col-sm-3">Ref commande</dt>
+                <dd class="col-sm-3">{{ post.order_ref }}</dd>
+
+                <dt class="col-sm-3 text-truncate">Data d'arrivé</dt>
+                <dd class="col-sm-9">{{ post.date_arrived }}</dd>
+              </dl>
+              <!-- /.panel-body -->
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger btn-square" (click)="delete(post)"  (click)="d('Cross click')"><i class="icofont icofont-warning-alt"></i> Delete</button>
+              <button type="button" class="btn btn-warning btn-square"  (click)="d('Cross click')">Cancel</button>
+            </div>
+          </ng-template>
+
+
+          <ng-template #contentProduitUpdate let-c="close" let-d="dismiss">
+            <div class="modal-header" style="background-color: #4cd787">
+              <h4 class="modal-title" id="modal-basic-title" style="color: white">Update Commande</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+
+
+              <form method="post" action="" [formGroup]="myformUpdate" (ngSubmit)="onUpdate(post.id,post.plan,post.quantity,post.order_ref,post.provider,post.observtion,post.date_arrived,post.category_id,user_id); d('Cross click');">
+                <div class="form-group">
+                  <label class="col-form-label">Catégorie</label>
+                  <select _ngcontent-c10="" class="form-control" formControlName="category_id" ngModel required  >
+                    <option _ngcontent-c10="" *ngFor="let categorie of categorietData" [value]=categorie.category_id >{{ categorie.name }}</option>
+                  </select>
+
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Ref Commande</label>
+                  <input type="text" class="form-control"   formControlName="NomProduit" value='{{ post.order_ref }}'>
+                </div>
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label">Fournisseur</label>
+
+                  <select _ngcontent-c10="" class="form-control" formControlName="provider" ngModel required  >
+                    <option _ngcontent-c10="" *ngFor="let provider of providertData"  [value]=provider.id >{{ provider.name }}</option>
+                  </select>                </div>
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label">Plan/Modéle</label>
+                  <textarea class="form-control" id="message-text" formControlName="DescriptionFacture" value='{{ post.plan }}'></textarea>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Quantité</label>
+                  <input type="number" class="form-control"  formControlName="PrixVente" value='{{ post.quantity }}'>
+                </div>
+                <div class="form-group">
+                  <label  class="col-form-label">Date arrivée</label>
+                  <input type="number" class="form-control"  formControlName="PrixVenteMin" value='{{ post.date_arrived }}'>
+                </div>
+
+                <div class="form-group">
+                  <label  class="col-form-label">Importer la commande</label>
+                  <input type="file" (change)="onFileChange($event)" multiple="false" />
+                </div>
+
+
+
+
+                <div class="modal-footer">
+                  <button class="btn btn-danger" (click)="c('Close click')">Cancel</button>
+                  <button type="submit" value="Submit" class="btn btn-success"><i class="icofont icofont-edit"></i>Update</button>
+
+                </div>
+
+              </form>
+            </div>
+
+          </ng-template>
+
+          <ng-template #contentProduit let-c="close" let-d="dismiss">
+            <div class="modal-header" style="background-color: #00AEEF">
+              <h4 class="modal-title" style="color: white">Detail Commande</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <dl class="row">
+                <dt class="col-sm-3">Ref Produit</dt>
+                <dd class="col-sm-3">{{ post.RefProduit }}</dd>
+                <dt class="col-sm-3">Nom Produit</dt>
+                <dd class="col-sm-3">{{ post.NomProduit }}</dd>
+                <br><br><br>
+
+                <dt class="col-sm-3 text-truncate">Description Produit</dt>
+                <dd class="col-sm-9">{{ post.DescriptionProduit }}</dd>
+
+                <br><br><br>
+                <dt class="col-sm-3">Prix Vente</dt>
+                <dd class="col-sm-3">{{ post.PrixVente }}</dd>
+                <dt class="col-sm-3">Prix Vente Minimal</dt>
+                <dd class="col-sm-3">{{ post.PrixVenteMin }}</dd>
+                <br><br><br>
+                <dt class="col-sm-3">TVA Produit</dt>
+                <dd class="col-sm-3">{{ post.TauxTVA}}%</dd>
+                <dt class="col-sm-3">Etat Produit</dt>
+                <dd class="col-sm-3"><div *ngIf="post.EtatVente == 0">
+                  <span class="badge badge-pill badge-primary">Stock</span>
+                </div>
+                  <div *ngIf="post.EtatVente == 1">
+                    <span class="badge badge-pill badge-info">Vendu</span>
+                  </div></dd>
+                <dd class="col-sm-3"><div *ngIf="post.EtatAchat == 0">
+                  <span class="badge badge-pill badge-primary">Stock</span>
+                </div>
+                  <div *ngIf="post.EtatAchat == 1">
+                    <span class="badge badge-pill badge-info">Vendu</span>
+                  </div></dd>
+
+              </dl>
+              <!-- /.panel-body -->
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" (click)="c('Close click')">Close</button>
+            </div>
+          </ng-template>
+
+
+
+        </tr>
+        </tbody>
+      </table>
+      <form class="pagination-wrapper">
+        <div class="form-group pages" style="margin-left: 8px">
+          <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)"  directionLinks="true"
+             autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+             screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+        </div>
+        <div class="form-group options pages" style="margin-right: 8px">
+          <div class="input-group input-group-sm">
+            <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="getMovement()">
+              <option>1</option>
+              <option>5</option>
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+              <option>100</option>
+              <option>200</option>
+            </select>
+            <span class="input-group-addon addon-right">Per Page</span>
+          </div>
+        </div>
+      </form>
+    </card>
+  </div>
+</card>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header" style="background-color: #4cd787">
+    <h4 class="modal-title" id="modal-basic-title" style="color: white">Ajouter Commande</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <form method="post" action="" [formGroup]="myform" (ngSubmit)="onSubmit()" >
+      <div class="form-group">
+        <label class="col-form-label">Catégorie</label><span _ngcontent-c4="" class="col-form-label" style="color: red">  *Example:boitier ou carte sim </span>
+        <input type="number" class="form-control" formControlName="category_id"
+               required pattern="[0-9]+"  >
+
+        <select _ngcontent-c10="" class="form-control" formControlName="category_id" ngModel required  >
+          <option _ngcontent-c10="" *ngFor="let categorie of categorietData" [value]=categorie.id >{{ categorie.label }}</option>
+        </select>
+
+        <input type="hidden" class="form-control" formControlName="user_id" [value]="2" ngModel required>
+
+
+        <label class="col-form-label">Ref Commande</label>
+        <input type="text" class="form-control" formControlName="order_ref" ngModel required
+        >
+
+        <input type="hidden" class="form-control" formControlName="user_id" [value]="2" ngModel required>
+
+
+        <label class="col-form-label">Fournisseur </label>
+        <select _ngcontent-c10="" class="form-control" formControlName="provider" ngModel required  >
+          <option _ngcontent-c10="" *ngFor="let provider of providertData" [value]=provider.id >{{ provider.name }}</option>
+        </select>
+
+        <label  class="col-form-label">Plan/Modéle</label>
+        <textarea class="form-control" id="plan"  formControlName="plan" ngModel  ></textarea>
+
+
+        <label class="col-form-label">Quantité</label><span _ngcontent-c4="" class="col-form-label" style="color: red">  *Example:50 </span>
+        <input type="number" class="form-control" formControlName="quantity" ngModel required >
+
+        <label class="col-form-label">Date arrivée</label><span _ngcontent-c4="" class="col-form-label" style="color: red">  *Example:1200.00 </span>
+        <input type="date" class="form-control" formControlName="date_arrived" ngModel required>
+
+        <label class="col-form-label">Etat</label>
+        <textarea _ngcontent-c10="" class="form-control" formControlName="observtion" disabled ngModel>
+        </textarea>
+
+          <label  class="col-form-label">Importer la commande</label>
+          <input type="file" (change)="onFileChange($event)" multiple="false" />
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-danger" (click)="c('Close click')">Cancel</button>
+        <button type="submit" value="Submit" class="btn btn-success" [disabled]="myform.invalid"><i class="icofont icofont-ui-add"></i>Add</button>
+      </div>
+
+    </form>
+  </div>
+
+</ng-template>
+
+<ng2-toasty [position]="position"></ng2-toasty>

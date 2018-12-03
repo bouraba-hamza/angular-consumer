@@ -1,0 +1,93 @@
+<card [classHeader]="true" [blockClass]="'table-border-style'">
+
+
+  <div _ngcontent-c6="" class="table-responsive">
+
+
+    <table _ngcontent-c6="" class="table table-hover">
+      <thead _ngcontent-c6="">
+      <tr class='table-filters'>
+
+        <th class="text-center priority-1" style=" width: 3%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"   placeholder="Action" type="text"></th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Date_Journalisation" type="datetime-local"></th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Utilisateur" type="text"></th>
+
+
+        <th class="text-center priority-3" style="width: 5%;"><button class="btn  btn-outline-primary" title="Exporter" (click)="exportAsXLSX()"><i class="icofont icofont-file-excel"></i>Exporter fichier</button></th>
+
+      <tr>
+        <th class="text-center priority-1" style=" width: 1%;"> Action </th>
+        <th class="text-center priority-7" style="width: 8%;"> Date_journalisation </th>
+        <th class="text-center priority-9" style="width: 5%;"> Utilisateur </th>
+      </tr>
+      </thead>
+
+      <tbody _ngcontent-c6="">
+
+      <tr *ngFor="let post of journalisationData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index" class='table-data'>
+        <td (click)="open(contentJournalisation,post)" style="text-align:center">{{ post.action }}</td>
+        <td (click)="open(contentJournalisation,post)" style="text-align:center">{{ post.created_at }}</td>
+        <td (click)="open(contentJournalisation,post)" style="text-align:center">{{ post.utilisateur }}</td>
+
+
+
+        <ng-template #contentJournalisation let-c="close" let-d="dismiss">
+          <div class="modal-header" style="background-color: #00AEEF">
+            <h4 class="modal-title" style="color: white">Détail journalisation</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <dl class="row">
+
+              <p><dt class="col-sm-3">Action</dt>
+              <dd class="col-sm-3">{{ post.action }}</dd></p>
+
+              <dt class="col-sm-3">Date_journalisation</dt>
+              <dd class="col-sm-3">{{ post.created_at }}</dd>
+
+              <dt class="col-sm-3">Utilisateur</dt>
+              <dd class="col-sm-3">{{ post.utilisateur }}</dd>
+
+
+            </dl>
+            <!-- /.panel-body -->
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="c('Close click')">Fermer</button>
+          </div>
+        </ng-template>
+
+
+      </tr>
+      </tbody>
+    </table>
+    <form class="pagination-wrapper">
+      <div class="form-group pages" style="margin-left: 8px">
+        <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)"  directionLinks="true"
+                             autoHide="true" previousLabel="Précédent" nextLabel="Suivant" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                             screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+      </div>
+      <div class="form-group options pages" style="margin-right: 8px">
+        <div class="input-group input-group-sm">
+          <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="getJournalisation()">
+            <option>1</option>
+            <option>5</option>
+            <option>10</option>
+            <option>20</option>
+            <option>50</option>
+            <option>100</option>
+            <option>200</option>
+          </select>
+          <span class="input-group-addon addon-right">Page</span>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <ng2-toasty [position]="position"></ng2-toasty>
+
+</card>

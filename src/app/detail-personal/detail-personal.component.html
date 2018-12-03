@@ -1,0 +1,92 @@
+<card [classHeader]="true" [blockClass]="'table-border-style'">
+
+
+
+  <div _ngcontent-c6="" class="table-responsive">
+
+    <table _ngcontent-c6=""  class="table table-hover" >
+
+
+      <thead _ngcontent-c6="">
+      <tr class='table-filters'>
+
+
+      <tr>
+        <th class="text-center priority-1" style=" width: 1%;"> Boitiers </th>
+        <th class="text-center priority-7" style="width: 8%;"> Date_Affectation_Boitiers </th>
+        <th class="text-center priority-9" style="width: 5%;"> Cartes_SIM </th>
+        <th class="text-center priority-3" style="width: 5%;"> Date_Affectation_Carte_SIM  </th>
+      </tr>
+      </thead>
+      <tbody _ngcontent-c6="">
+      <tr *ngFor="let post of detailPersonalData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index" class='table-data'>
+
+        <td (click)="open(contentDetailpersonal,post)" style="text-align:center">{{ post.imei_products }}</td>
+        <td (click)="open(contentDetailpersonal,post)" style="text-align:center">{{ post.date_products }}</td>
+        <td (click)="open(contentDetailpersonal,post)" style="text-align:center">{{ post.label }}</td>
+        <td (click)="open(contentDetailpersonal,post)" style="text-align:center">{{ post.date_label }}</td>
+
+
+        <ng-template #contentDetailpersonal let-c="close" let-d="dismiss">
+          <div class="modal-header" style="background-color: #00AEEF">
+            <h4 class="modal-title" style="color: white">Détail installateur</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <dl class="row">
+              <dt class="col-sm-3">Boitiers :</dt>
+              <dd class="col-sm-3">{{ post.imei_products }}</dd>
+
+              <dt class="col-sm-3">Date_Affectation_Boitiers :</dt>
+              <dd class="col-sm-3">{{ post.date_products }}</dd>
+
+              <dt class="col-sm-3">Cartes_SIM :</dt>
+              <dd class="col-sm-3">{{ post.label }}</dd>
+
+              <dt class="col-sm-3">Date_Affectation_Carte_SIM :</dt>
+              <dd class="col-sm-3">{{ post.date_label }}</dd>
+
+
+            </dl>
+            <!-- /.panel-body -->
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="c('Close click')">Fermer</button>
+          </div>
+        </ng-template>
+
+
+      </tr>
+      </tbody>
+    </table>
+    <form class="pagination-wrapper">
+      <div class="form-group pages" style="margin-left: 8px">
+        <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)"  directionLinks="true"
+                             autoHide="true" previousLabel="Précédent" nextLabel="Suivant" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                             screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+      </div>
+      <div class="form-group options pages" style="margin-right: 8px">
+        <div class="input-group input-group-sm">
+          <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="getDetailPersonal()">
+            <option>1</option>
+            <option>5</option>
+            <option>10</option>
+            <option>20</option>
+            <option>50</option>
+            <option>100</option>
+            <option>200</option>
+          </select>
+          <span class="input-group-addon addon-right">Page</span>
+        </div>
+      </div>
+    </form>
+  </div>
+</card>
+
+
+
+<ng2-toasty [position]="position"></ng2-toasty>

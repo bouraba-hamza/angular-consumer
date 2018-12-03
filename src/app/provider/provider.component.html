@@ -1,0 +1,305 @@
+<card [classHeader]="true" [blockClass]="'table-border-style'">
+
+
+  <div _ngcontent-c6="" class="table-responsive">
+
+
+    <table _ngcontent-c6=""  class="table table-hover" >
+
+      <thead _ngcontent-c6="">
+      <tr class='table-filters'>
+
+        <th class="text-center priority-1" style=" width: 3%;"> <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Nom" type="text"> </th>
+        <th class="text-center priority-7" style="width: 8%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()" myNumberOnly placeholder="Contact_Gsm" type="tel"></th>
+        <th class="text-center priority-1" style=" width: 3%;">
+          <select _ngcontent-c6="" id="client_select"  class="form-control form-control-success ">
+            <option  value="">Types</option>
+            <option *ngFor="let single_costumer of typesprovider" _ngcontent-c10="" value="{{single_costumer.types}}">{{single_costumer.types}}</option>
+          </select>
+        </th>
+        <th class="text-center priority-2" style="width: 5%;"> <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()" myNumberOnly maxlength="10" placeholder="Téléphone_Fix" type="tel"> </th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  pattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email" type="email"></th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Ville" type="text"></th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Département" type="text"></th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  maxlength="5" placeholder="Code_Postal" type="number"></th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Région" type="text"></th>
+        <th class="text-center priority-3" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success" (click)="resizepage()"  placeholder="Adresse" type="text"></th>
+
+        <th class="text-center priority-3" style="width: 5%;"> <button class="btn  btn-outline-primary" title="Ajouter" (click)="open(content)"><i class="icofont icofont-ui-add"></i>Ajouter Fournisseur</button></th>
+
+      <tr>
+        <th class="text-center priority-1" style=" width: 1%;"> Nom </th>
+        <th class="text-center priority-7" style="width: 8%;"> Contact_GSM </th>
+        <th class="text-center priority-9" style="width: 5%;"> Types </th>
+        <th class="text-center priority-2" style="width: 5%;"> Téléphone_FIX </th>
+        <th class="text-center priority-3" style="width: 5%;"> Email </th>
+        <th class="text-center priority-3" style="width: 5%;"> Ville </th>
+        <th class="text-center priority-3" style="width: 5%;"> Département </th>
+        <th class="text-center priority-3" style="width: 5%;"> Code_Postal </th>
+        <th class="text-center priority-3" style="width: 5%;"> Région </th>
+        <th class="text-center priority-3" style="width: 5%;"> Adresse </th>
+        <th class="text-center priority-3" style="width: 5%;"> Action  </th>
+      </tr>
+      </thead>
+      <tbody _ngcontent-c6="">
+      <tr *ngFor="let post of providerData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index" class='table-data'>
+        <td (click)="open(contentProvider,post)" style="text-align:center">{{ post.name }}</td>
+        <td (click)="open(contentProvider,post)" style="text-align:center">{{ post.contact_gsm }}</td>
+        <td (click)="open(contentProvider,post)" style="text-align:center">{{ post.types }}</td>
+        <td (click)="open(contentProvider,post)" style="text-align:center">{{ post.tel_fix }}</td>
+        <td (click)="open(contentProvider,post)" style="text-align:center">{{ post.mail }}</td>
+        <td (click)="open(contentProvider,post)" style="text-align:center">{{ post.city }}</td>
+        <td (click)="open(contentProvider,post)" style="text-align:center">{{ post.departement }}</td>
+        <td (click)="open(contentProvider,post)" style="text-align:center">{{ post.code_postal }}</td>
+        <td (click)="open(contentProvider,post)" style="text-align:center">{{ post.region }}</td>
+        <td (click)="open(contentProvider,post)" style="text-align:center">{{ post.address }}</td>
+        <td style="text-align:center" ><button type="button" class="btn btn-outline-success" title="Modifier" (click)="open(contentProviderUpdate)"><i class="icofont icofont-edit"></i></button>
+
+        <button type="button" class="btn btn-outline-danger" title="Supprimer" (click)="opensm(contentProviderDelete)"><i class="icofont icofont-ui-delete"></i></button></td>
+
+        <ng-template #contentProviderDelete let-c="close" let-d="dismiss">
+          <div class="modal-header" style="background-color: #DD4B39">
+            <h4 class="modal-title" style="color: white">Supprimer fournisseur</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <dl class="row">
+              <dt class="col-sm-3">Nom :</dt>
+              <dd class="col-sm-3">{{ post.name }}</dd>
+
+              <dt class="col-sm-3">Contact_GSM :</dt>
+              <dd class="col-sm-3">{{ post.contact_gsm }}</dd>
+
+              <dt class="col-sm-3">Types :</dt>
+              <dd class="col-sm-3">{{ post.types }}</dd>
+
+              <dt class="col-sm-3">Téléphone_FIX :</dt>
+              <dd class="col-sm-3">{{ post.tel_fix }}</dd>
+
+              <dt class="col-sm-3">Email :</dt>
+              <dd class="col-sm-3">{{ post.mail }}</dd>
+
+              <dt class="col-sm-3">Ville :</dt>
+              <dd class="col-sm-3">{{ post.city }}</dd>
+
+              <dt class="col-sm-3">Département :</dt>
+              <dd class="col-sm-3">{{ post.departement }}</dd>
+
+              <dt class="col-sm-3">Code_Postal :</dt>
+              <dd class="col-sm-3">{{ post.code_postal }}</dd>
+
+              <dt class="col-sm-3">Région :</dt>
+              <dd class="col-sm-3">{{ post.region }}</dd>
+
+              <dt class="col-sm-3">Adresse :</dt>
+              <dd class="col-sm-3">{{ post.address }}</dd>
+            </dl>
+            <!-- /.panel-body -->
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-dark btn-square"  (click)="d('Cross click')">Annuler</button>
+            <button type="button" class="btn btn-danger btn-square" (click)="delete(post)"  (click)="d('Cross click')"><i class="icofont icofont-warning-alt"></i> Supprimer</button>
+          </div>
+        </ng-template>
+
+        <ng-template #contentProviderUpdate let-c="close" let-d="dismiss">
+          <div class="modal-header" style="background-color: #4cd787">
+            <h4 class="modal-title" id="modal-basic-title" style="color: white">Modifier fournisseur</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="" [formGroup]="myformUpdate" (ngSubmit)="onUpdate(post.id_provider,post.name,post.contact_gsm,post.types_providers_id,post.tel_fix,post.mail,post.city,post.departement,post.code_postal,post.region,post.address); d('Cross click');">
+              <div class="form-group">
+                <label class="col-form-label">Nom :</label>
+                <input type="text" class="form-control" formControlName="name" value='{{ post.name }}' >
+              </div>
+              <div class="form-group">
+                <label  class="col-form-label">Contact_GSM :</label>
+                <input type="tel" class="form-control" myNumberOnly maxlength="10" formControlName="contact_gsm" value='{{ post.contact_gsm }}'>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label">Types :</label>
+                <select _ngcontent-c10="" class="form-control" formControlName="types_providers_id" value="{{post.types_providers_id}}" ngModel>
+                  <option *ngFor="let single_costumer of typesprovider" _ngcontent-c10="" value="{{single_costumer.id}}">{{single_costumer.types}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label  class="col-form-label">Téléphone_FIX :</label>
+                <input type="tel" class="form-control"  myNumberOnly maxlength="10" formControlName="tel_fix" value='{{ post.tel_fix }}'>
+              </div>
+              <div class="form-group">
+                <label  class="col-form-label">Email :</label>
+                <input type="email" class="form-control" pattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" formControlName="mail" value='{{ post.mail }}'>
+              </div>
+              <div class="form-group">
+                <label  class="col-form-label">Ville :</label>
+                <input type="text" class="form-control"  formControlName="city" value='{{ post.city }}'>
+              </div>
+              <div class="form-group">
+                <label  class="col-form-label">Département :</label>
+                <input type="text" class="form-control"  formControlName="departement" value='{{ post.departement }}'>
+              </div>
+              <div class="form-group">
+                <label  class="col-form-label">Code_Postal :</label>
+                <input type="number" class="form-control" maxlength="5" formControlName="code_postal" value='{{ post.code_postal }}'>
+              </div>
+              <div class="form-group">
+                <label  class="col-form-label">Région :</label>
+                <input type="text" class="form-control"  formControlName="region" value='{{ post.region }}'>
+              </div>
+              <div class="form-group">
+                <label  class="col-form-label">Adresse :</label>
+                <input type="text" class="form-control"  formControlName="address" value='{{ post.address }}'>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-dark" (click)="c('Close click')">Annuler</button>
+                <button type="submit" value="Submit" class="btn btn-success"><i class="icofont icofont-edit"></i>Modifier</button>
+              </div>
+            </form>
+          </div>
+        </ng-template>
+
+        <ng-template #contentProvider let-c="close" let-d="dismiss">
+          <div class="modal-header" style="background-color: #00AEEF">
+            <h4 class="modal-title" style="color: white">Detail fournisseur</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <dl class="row">
+              <dt class="col-sm-3">Nom :</dt>
+              <dd class="col-sm-3">{{ post.name }}</dd>
+
+              <dt class="col-sm-3">Contact_GSM :</dt>
+              <dd class="col-sm-3">{{ post.contact_gsm }}</dd>
+
+              <dt class="col-sm-3">Types :</dt>
+              <dd class="col-sm-3">{{ post.types }}</dd>
+
+              <dt class="col-sm-3">Téléphone_FIX :</dt>
+              <dd class="col-sm-3">{{ post.tel_fix }}</dd>
+
+              <dt class="col-sm-3">Email :</dt>
+              <dd class="col-sm-3">{{ post.mail }}</dd>
+
+              <dt class="col-sm-3">Ville :</dt>
+              <dd class="col-sm-3">{{ post.city}}</dd>
+
+              <dt class="col-sm-3">Département :</dt>
+              <dd class="col-sm-3">{{ post.departement}}</dd>
+
+              <dt class="col-sm-3">Code_Postal :</dt>
+              <dd class="col-sm-3">{{ post.code_postal}}</dd>
+
+              <dt class="col-sm-3">Région :</dt>
+              <dd class="col-sm-3">{{ post.region}}</dd>
+
+              <dt class="col-sm-3">Adresse :</dt>
+              <dd class="col-sm-3">{{ post.address}}</dd>
+
+
+            </dl>
+            <!-- /.panel-body -->
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="c('Close click')">Fermer</button>
+          </div>
+        </ng-template>
+      </tr>
+      </tbody>
+    </table>
+    <form class="pagination-wrapper">
+      <div class="form-group pages" style="margin-left: 8px">
+        <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)"  directionLinks="true"
+                             autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                             screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+      </div>
+      <div class="form-group options pages" style="margin-right: 8px">
+        <div class="input-group input-group-sm">
+          <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="getProvider()">
+            <option>1</option>
+            <option>5</option>
+            <option>10</option>
+            <option>20</option>
+            <option>50</option>
+            <option>100</option>
+            <option>200</option>
+          </select>
+          <span class="input-group-addon addon-right">Page</span>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header" style="background-color: #4cd787">
+      <h4 class="modal-title" id="modal-basic-title" style="color: white">Ajouter fournisseur</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <form method="post" action="" [formGroup]="myform" (ngSubmit)="onSubmit()" >
+        <div class="form-group">
+          <label class="col-form-label">Nom  :</label><span _ngcontent-c4="" class="col-form-label" style="color: red"> *  </span>
+          <input type="text" class="form-control" formControlName="name" required
+          >
+
+          <label class="col-form-label">Contact_GSM :</label><span _ngcontent-c4="" class="col-form-label" style="color: red"> *  </span>
+          <input type="tel" myNumberOnly maxlength="10" class="form-control" formControlName="contact_gsm" ngModel required
+          >
+          <label class="col-form-label">Types :</label><span _ngcontent-c4="" class="col-form-label" style="color: red"> * </span>
+          <select _ngcontent-c10="" class="form-control" formControlName="types_providers_id" ngModel required >
+            <option *ngFor="let single_provider of typesprovider" _ngcontent-c10="" value="{{single_provider.id}}">{{single_provider.types}}</option>
+          </select>
+
+          <label class="col-form-label">Téléphone_FIX :</label>
+          <input type="tel" myNumberOnly maxlength="10" class="form-control" formControlName="tel_fix">
+
+
+          <label class="col-form-label">Email :</label><span _ngcontent-c4="" class="col-form-label" style="color: red"> *  </span>
+          <input type="email" class="form-control" pattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" formControlName="mail" ngModel
+          >
+
+          <label class="col-form-label">Ville :</label>
+          <input type="text" class="form-control" formControlName="city" ngModel
+          >
+
+          <label class="col-form-label">Département :</label>
+          <input type="text" class="form-control" formControlName="departement" ngModel
+          >
+
+          <label class="col-form-label">Code_Postal :</label>
+          <input type="number" class="form-control" maxlength="5" formControlName="code_postal" ngModel
+          >
+
+          <label class="col-form-label">Région :</label>
+          <input type="text" class="form-control" formControlName="region" ngModel
+          >
+
+          <label class="col-form-label">Adresse :</label>
+          <input type="text" class="form-control" formControlName="address" ngModel
+          >
+
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-dark" (click)="c('Close click')">Annuler</button>
+          <button type="submit" value="Submit" class="btn btn-success" ><i class="icofont icofont-ui-add"></i>Ajouter</button>
+        </div>
+
+      </form>
+    </div>
+
+  </ng-template>
+
+  <ng2-toasty [position]="position"></ng2-toasty>

@@ -1,0 +1,230 @@
+<card [classHeader]="true" [blockClass]="'table-border-style'">
+
+
+
+  <div _ngcontent-c6="" class="table-responsive">
+
+    <table _ngcontent-c6=""  class="table table-hover" >
+
+
+      <thead _ngcontent-c6="">
+      <tr class='table-filters'>
+
+        <th class="text-center priority-1" style=" width: 3%;">
+          <select _ngcontent-c6="" id="marque_select" class="form-control form-control-success">
+            <option value="">Sélectionner une Marque</option>
+            <option *ngFor="let single_marque of marques" _ngcontent-c10="" value="{{single_marque.marque}}">{{single_marque.marque}}</option>
+          </select>
+        </th>
+        <th class="text-center priority-1" style=" width: 3%;">
+          <select _ngcontent-c6="" id="modele_select" class="form-control form-control-success">
+            <option value="">Sélectionner un Modèle</option>
+            <option *ngFor="let single_modele of modeles" _ngcontent-c10="" value="{{single_modele.modele}}">{{single_modele.modele}}</option>
+          </select>
+        </th>
+        <th class="text-center priority-9" style="width: 5%;">  <input _ngcontent-c6="" class="form-control form-control-success"(click)="resizepage()" placeholder="exemple: 2001" type="number"></th>
+
+        <th class="text-center priority-3" style="width: 5%;"><button type="button" class="btn  btn-outline-primary" title="Ajouter" (click)="open(content)"><i class="icofont icofont-ui-add" aria-hidden="true">Ajouter SchémaVéhicule</i></button></th>
+
+      <tr>
+        <th class="text-center priority-1" style=" width: 1%;"> Marque </th>
+        <th class="text-center priority-7" style="width: 8%;"> Modèle </th>
+        <th class="text-center priority-9" style="width: 5%;"> Année_Modèle </th>
+        <th class="text-center priority-3" style="width: 5%;"> Action  </th>
+      </tr>
+      </thead>
+      <tbody _ngcontent-c6="">
+      <tr *ngFor="let post of schemavehiculeData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index" class='table-data'>
+
+        <td (click)="open(contentSchemavehicule,post)" style="text-align:center">{{ post.marque }}</td>
+        <td (click)="open(contentSchemavehicule,post)" style="text-align:center">{{ post.modele }}</td>
+        <td (click)="open(contentSchemavehicule,post)" style="text-align:center">{{ post.modelyear }}</td>
+
+
+        <td style="text-align:center"   ><button type="button" class="btn btn-outline-success" title="Modifier" (click)="open(contentschemavehiculeUpdate)"><i class="icofont icofont-edit" aria-hidden="true"></i></button>
+                           <button type="button" class="btn btn-outline-danger" title="Supprimer" (click)="open(contentschemavehiculeDelete)"><i class="icofont icofont-ui-delete" aria-hidden="true"></i></button>
+                           <button type="button" class="btn btn-outline-info" title="Afficher Schéma" (click)="seeFile(post.image)"><i class="icofont icofont-image" aria-hidden="true"></i></button>
+
+
+          <ng-template #contentschemavehiculeDelete let-c="close" let-d="dismiss">
+            <div class="modal-header" style="background-color: #DD4B39">
+              <h4 class="modal-title" style="color: white">Supprimer Schéma</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <dl class="row">
+                <dt class="col-sm-3">Marque : </dt>
+                <dd class="col-sm-3">{{ post.marque }}</dd>
+
+
+                <dt class="col-sm-3">Modèle : </dt>
+                <dd class="col-sm-3">{{ post.modele }}</dd>
+
+                <dt class="col-sm-3">Année_Modèle : </dt>
+                <dd class="col-sm-9">{{ post.modelyear }}</dd>
+              </dl>
+              <!-- /.panel-body -->
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-dark btn-square"  (click)="d('Cross click')">Annuler</button>
+              <button type="button" class="btn btn-danger btn-square" (click)="delete(post)"  (click)="d('Cross click')"><i class="icofont icofont-warning-alt"></i> Supprimer</button>
+            </div>
+          </ng-template>
+
+
+          <ng-template #contentschemavehiculeUpdate let-c="close" let-d="dismiss">
+            <div class="modal-header" style="background-color: #00AEEF">
+              <h4 class="modal-title" id="modal-basic-title" style="color: white">Modifier Schéma</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <form method="post" action="" [formGroup]="myformUpdate" (ngSubmit)="onUpdate(post.id,post.marque_id,post.modele_id,post.modelyear,post.image); d('Cross click');">
+
+                <div class="form-group">
+                  <label class="col-form-label">Marque :</label>
+                  <select _ngcontent-c10="" id="marque_id" class="form-control" formControlName="marque_id" value="{{post.marque_id}}" ngModel>
+                    <option *ngFor="let single_marque of marques" _ngcontent-c10="" value="{{single_marque.id}}">{{single_marque.marque}}</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">Modèle :</label>
+                  <select _ngcontent-c10="" id="model_id"  class="form-control" formControlName="modele_id" value="{{post.modele_id}}" ngModel>
+                    <option *ngFor="let single_modele of modeles" _ngcontent-c10="" value="{{single_modele.id}}">{{single_modele.modele}}</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label  class="col-form-label">Année_Modèle :</label>
+                  <input type="number" size="4" id="year_id" class="form-control"  pattern="[0-9]{4}" placeholder="exemple: 2001" formControlName="modelyear" value='{{ post.modelyear }}'>
+                </div>
+
+                <div class="form-group">
+                  <label  class="col-form-label">Image :</label>
+                  <input type="file" class="form-control" id="image_id"  formControlName="image" placeholder="Upload file" accept=".jpg,.png" value=''>
+
+                </div>
+
+
+
+
+                <div class="modal-footer">
+                  <button class="btn btn-dark" (click)="c('Close click')">Annuler</button>
+                  <button type="submit" value="Submit" class="btn btn-info"><i class="icofont icofont-edit"></i>Modifier</button>
+
+                </div>
+
+              </form>
+            </div>
+
+          </ng-template>
+
+          <ng-template #contentSchemavehicule let-c="close" let-d="dismiss">
+            <div class="modal-header" style="background-color: #00AEEF">
+              <h4 class="modal-title" style="color: white">Detail Schéma</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <dl class="row">
+                <dt class="col-sm-3">Marque :</dt>
+                <dd class="col-sm-3">{{ post.marque }}</dd>
+
+                <dt class="col-sm-3">Modèle :</dt>
+                <dd class="col-sm-3">{{ post.modele }}</dd>
+
+                <dt class="col-sm-3 text-truncate">Année_Modèle :</dt>
+                <dd class="col-sm-9">{{ post.modelyear }}</dd>
+
+              </dl>
+              <!-- /.panel-body -->
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" (click)="c('Close click')">Fermer</button>
+            </div>
+          </ng-template>
+
+
+
+      </tr>
+      </tbody>
+    </table>
+    <form class="pagination-wrapper">
+      <div class="form-group pages" style="margin-left: 8px">
+        <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)"  directionLinks="true"
+                             autoHide="true" previousLabel="Précédent" nextLabel="Suivant" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                             screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+      </div>
+      <div class="form-group options pages" style="margin-right: 8px">
+        <div class="input-group input-group-sm">
+          <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="getSchemaVehicule()">
+            <option>1</option>
+            <option>5</option>
+            <option>10</option>
+            <option>20</option>
+            <option>50</option>
+            <option>100</option>
+            <option>200</option>
+          </select>
+          <span class="input-group-addon addon-right">Page</span>
+        </div>
+      </div>
+    </form>
+  </div>
+</card>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header" style="background-color: #4cd787">
+    <h4 class="modal-title" id="modal-basic-title" style="color: white">Ajouter Schéma</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <form method="post" action="" (ngSubmit)="fileUpload()" >
+      <div class="form-group">
+        <label class="col-form-label">Marque :</label>
+        <select _ngcontent-c10="" id="marque" class="form-control"   required >
+          <option *ngFor="let single_marque of marques" _ngcontent-c10="" value="{{single_marque.id}}">{{single_marque.marque}}</option>
+        </select>
+
+        <label class="col-form-label">Modèle :</label>
+        <select _ngcontent-c10="" id="model" class="form-control"  required >
+          <option *ngFor="let single_modele of modeles" _ngcontent-c10="" value="{{single_modele.id}}">{{single_modele.modele}}</option>
+        </select>
+
+        <label class="col-form-label">Année_Modèle :</label>
+        <input type="number" id="year" placeholder="exemple: 2009" min="1900" max="2099" class="form-control"  required
+        >
+
+
+        <label class="col-form-label">Image :</label>
+        <input class="form-control" type="file" id="file_loader" placeholder="Upload file" accept=".jpg,.png"
+        >
+
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-dark" (click)="c('Close click')">Annuler</button>
+        <button type="submit" value="Submit" class="btn btn-success" [disabled]="myform.invalid"><i class="icofont icofont-ui-add"></i>Ajouter</button>
+      </div>
+
+    </form>
+  </div>
+
+</ng-template>
+
+<ng2-toasty [position]="position"></ng2-toasty>

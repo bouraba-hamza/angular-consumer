@@ -1,0 +1,618 @@
+
+
+
+
+
+
+
+
+
+<div id="bloc_filter_interval_calendar">
+
+     <div id="div_nbr_event_non_vue">
+         <span id="span_1_div_nbr_event_non_vue">
+             <span id="span_2_div_nbr_event_non_vue">0</span>
+             <span *ngIf="current_role == 'admin'">non vue(s)</span>
+             <span *ngIf="current_role != 'admin'">new(s)</span>
+         </span>
+     </div>
+
+    <!--  bloc_filter_interval_calendar   where update_at between '17-May-12 00:00:00.000' AND '17-May-12 23:59:59.000' -->
+
+
+
+
+
+
+
+
+    <div  id="div_miniCalendars_bloc_filter_interval_calendar">
+
+
+        <div  id="div_miniCalendar1_bloc_filter_interval_calendar">
+
+            <!--
+            $(".wc-date-popover").attr('hidden','hidden')
+            -->
+            <angular2-date-picker [(ngModel)]="miniCalendar1" [settings]="settings" id="miniCalendar1" (click)="onDateSelect($event,1)"></angular2-date-picker>
+        </div>
+
+        <div id="div_miniCalendar2_bloc_filter_interval_calendar">
+            <angular2-date-picker [(ngModel)]="miniCalendar2" [settings]="settings2" id="miniCalendar2" (click)="onDateSelect($event,2)"></angular2-date-picker>
+        </div>
+
+        <button type="button" class="btn btn-success" id="submit_search_intervalle_date" (click)="getAgendaEvents_inerval()">Valider</button>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <div id="bloc_filter_right_calendar">
+
+
+
+        <select class="form-control chosen-select" id="filter_type_calendar" (change)="go_search_filters_like_events($event)">
+            <option value="0"  >Type</option>
+            <option value="1" style="    color: #f27272;  font-weight: 600;" >Commercial</option>
+            <option value="2" style="    color: #3e9cde;  font-weight: 600;" >Administratif</option>
+            <option value="3" style="    color: #ffc107;  font-weight: 600;" >Financier</option>
+            <option value="4" style="    color: #1abc9c;  font-weight: 600;" >Logistique</option>
+            <option value="5" style="    color: #59f2f2;  font-weight: 600;" >Téchnique</option>
+        </select>
+
+        <select class="form-control chosen-select" id="filter_client_calendar" (change)="go_search_filters_like_events($event)" >
+            <option value="0"  >Client</option>
+            <option *ngFor="let item of costumerData" style="  font-weight: 600;"  value="{{ item.id }}">{{ item.name }}</option>
+
+
+
+        </select>
+
+        <select class="form-control chosen-select" id="filter_installateur_calendar" style="display:none;" (change)="go_search_filters_like_events($event)">
+            <option value="0"  >Install</option>
+            <option *ngFor="let item of installerData" style="  font-weight: 600;" value="{{ item.user_id }}">{{ item.last_name }} {{ item.fisrt_name }}</option>
+        </select>
+
+        <select class="form-control chosen-select" id="filter_intern_calendar" (change)="go_search_filters_like_events($event)" >
+            <option value="0"  >Intern</option>
+            <option *ngFor="let item of usersData" style="  font-weight: 600;" value="{{ item.id }}">{{ item.last_name }} {{ item.fisrt_name }}</option>
+        </select>
+
+
+        <input type="text" class="form-control" name="title_filter" id="title_filter" placeholder="Title" (keyup)="go_search_filters_like_events($event)" >
+
+        <input type="text" class="form-control" name="lieu_filter" id="lieu_filter"   placeholder="Lieu" (keyup)="go_search_filters_like_events($event)" >
+
+
+        <select class="form-control chosen-select" id="filter_idUser_calendar" (change)="go_search_events_byIdUser_sup($event)" *ngIf="current_role == 'admin'">
+            <option value="0"  >Sup</option>
+            <option *ngFor="let item of usersData" style="  font-weight: 600;" value="{{ item.id }}">{{ item.last_name }} {{ item.first_name }}</option>
+        </select>
+
+        <button type="button" class="btn" id="refreshAgendaEvents" (click)="refreshAgendaEvents()">.</button>
+
+
+    </div>
+
+</div>
+
+<br>
+
+
+
+
+
+
+<nav class="navbar navbar-default" style="display:none !important;">
+    <div class="container-fluid">
+        <p class="navbar-brand" id="todaysDate"></p>
+    </div>
+</nav>
+
+<img id="gif_loader" src="../../assets/loading.gif">
+
+<div class="container-fluid row">
+
+
+    <div #calendar1 id='calendar1' class='calendar col-md-8'></div>
+    <div #calendar2 id='calendar2' class='calendar col-md-4'></div>
+
+    <!--
+         <div *ngIf="calendar1Options">
+             <ng-fullcalendar #ucCalendar [options]="calendar1Options" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)"
+                                (clickButton)="console.log($event.detail)"></ng-fullcalendar>
+         </div>
+      -->
+
+</div>
+
+
+
+
+<div class="modal" id="newEvent" role="dialog" aria-labelledby="eventFormLabel" aria-hidden="true" *ngIf="current_role == 'admin'" style="">
+
+
+
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="title_newEvent">Ajout</h4>
+            </div>
+
+
+
+            <form method="post" action="" ngControl="formAdd" id="formAdd"  >
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_close_form_event_add"  (click)="close_forms()">
+                </button>
+
+                <div class="form-group">
+
+                    <div class="form-group formGroup1" >
+                      <!--  <input type="text" class="form-control" name="title" id="title" formControlName="title" placeHolder="Titre" value="TITRE DE L'EVENEMENT"  > -->
+                        <input type="text" class="form-control" name="title" id="title" ngControl="title" placeHolder="Titre" value="TITRE DE L'EVENEMENT"  >
+                    </div>
+
+                    <div id="skull_formAdd">
+
+                        <div id="content_div_trial" *ngIf="current_role == 'admin'" >
+                            <div class="trial_add">
+                                <button type="button" class="btn btn-primary btn-lg submitfrm" id="submit" (click)="onSubmit()"   >Valider</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group formGroup2">
+
+                            <!--<label class="col-md-4 control-label">Client</label>-->
+                            <select name="client_id" class="form-control chosen-select" id="client_id" ngControl="client_id" >
+                                <option value="">Client</option>
+                                <option *ngFor="let item of costumerData" value="{{ item.id }}">{{ item.name }}</option>
+                            </select>
+
+                        </div>
+
+
+
+                        <div class="form-group formGroup3">
+
+                            <!-- <label class="col-md-4 control-label">Installateur</label>-->
+                            <select name="installateur_id" class="form-control chosen-select" id="installateur_id" ngControl="installateur_id" value="" >
+                                <option value="" >Installateur</option>
+                                <option *ngFor="let item of usersData" value="{{ item.id }}">{{ item.last_name }} {{ item.fisrt_name }}</option>
+                            </select>
+
+                        </div>
+
+
+
+
+
+
+
+                        <div class="form-group formGroup5">
+                            <span class="span_le">Le</span>
+                            <input type="date" class="form-control" name="created_at" id="created_at" min="2018-08-06"  ngControl="created_at">
+                            <input type="hidden" id="end_date" value="" ngControl="end_date">
+                        </div>
+
+                        <div class="form-group formGroup6" style="display:none !important ;">
+                            <!--   <label class="col-md-4 control-label">Update at</label> -->
+                            <input type="date" class="form-control" name="update_at" id="update_at" min="2018-08-06" ngControl="update_at">
+                        </div>
+
+                        <div class="form-group formGroup7">
+                            <!--      <label class="col-md-4 control-label">Heure</label>-->
+                            <input type="time" class="form-control" name="heure" id="heure" ngControl="heure">
+                        </div>
+
+
+
+                        <div class="form-group formGroup4">
+                            <span class="span_a">A</span>
+                            <input type="text" class="form-control" name="lieu" id="lieu" ngControl="lieu" placeHolder="Lieu">
+                        </div>
+
+
+
+
+                        <div class="form-group formGroup8">
+                            <!--   <label class="col-md-4 control-label">Type</label> -->
+                            <select name="type" class="form-control chosen-select" id="type" value=""  ngControl="type" (change)="check_selected_val_type_add($event)" >
+                                <option value=""  >Type</option>
+                                <option value="1" style="    color: #f27272;  font-weight: 600;" >Commercial</option>
+                                <option value="2" style="    color: #3e9cde;  font-weight: 600;" >Administratif</option>
+                                <option value="3" style="    color: #ffc107;  font-weight: 600;" >Financier</option>
+                                <option value="4" style="    color: #1abc9c;  font-weight: 600;" >Logistique</option>
+                                <option value="5" style="    color: #59f2f2;  font-weight: 600;" >Téchnique</option>
+                            </select>
+                        </div>
+
+
+
+
+
+                        <div class="form-group formGroup9" id="div_inputs_add_cas_technique" >
+                            <div class="div_inputs_add_cas_technique">
+                                <input id="txt_opt_1_technique_add" type="text" placeholder="I" class="oneinput_div_inputs_add_cas_technique form-control" />
+                            </div>
+                            <div class="div_inputs_add_cas_technique">
+                                <input id="txt_opt_2_technique_add" type="text" placeholder="V" class="oneinput_div_inputs_add_cas_technique form-control" />
+                            </div>
+                            <div class="div_inputs_add_cas_technique">
+                                <input id="txt_opt_3_technique_add" type="text" placeholder="D" class="oneinput_div_inputs_add_cas_technique form-control" />
+                            </div>
+                            <div class="div_inputs_add_cas_technique">
+                                <input id="txt_opt_4_technique_add" type="text" placeholder="R" class="oneinput_div_inputs_add_cas_technique form-control" />
+                            </div>
+                            <div class="div_inputs_add_cas_technique">
+                                <input id="txt_opt_5_technique_add" type="text" placeholder="CB" class="oneinput_div_inputs_add_cas_technique form-control" />
+                            </div>
+                            <div class="div_inputs_add_cas_technique">
+                                <input id="txt_opt_6_technique_add" type="text" placeholder="CS" class="oneinput_div_inputs_add_cas_technique form-control" />
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group formGroup10">
+
+                            <!--    <label class="col-md-4 control-label">Remarque</label> -->
+                            <textarea type="text" class="form-control" name="remarque" id="remarque" rows="4" ngControl="remarque">Remarque</textarea>
+
+                        </div>
+
+
+                    </div> <!-- end skull_formAdd-->
+
+
+
+
+                </div>
+            </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal  " id="editEvent" role="dialog" aria-labelledby="eventFormLabel" aria-hidden="true" data-persist="false" style="">
+
+    <div class="modal-dialog" role="document" id="editEvent_document" >
+        <div class="modal-content">
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_close_form_event" (click)="close_forms()">
+            </button>
+
+            <div class="modal-header">
+                <h4 style="display:none !important;" class="modal-title" id="title_editEvent">Update Event [ID: <span id="id_upd">?</span> ]</h4>
+                <input type="hidden" id="hidden_etat" value="" />
+            </div>
+
+
+
+
+
+
+
+            <form method="post" action="" ngControl="formUpdate"  id="formUpd" >
+
+                <div class="form-group">
+
+
+
+                    <div class="form-group formGroup1">
+                        <input type="text" class="form-control" name="title" id="title_upd" ngControl="title"  placeHolder="Titre" >
+                    </div>
+
+
+                    <div id="skull_formUpd">
+
+
+                        <div id="content_div_trial2"  *ngIf="current_role == 'admin'"   >
+                            <div class="trial">
+                                <button type="button" class="btn btn-primary btn-lg submitfrm" id="delete" (click)="prepa_delete()">Delete Event</button>
+                                <button type="button" class="btn btn-primary btn-lg submitfrm" id="update" (click)="onSubmit_upd()">Update Event</button>
+                            </div>
+                        </div>
+
+
+
+                        <!--
+
+
+
+
+
+
+                        -->
+
+
+
+
+
+
+
+                        <div class="form-group formGroup2">
+                            <select name="client_id" class="form-control chosen-select" id="client_id_upd" ngControl="client_id" >
+                                <option value="">Client</option>
+                                <option *ngFor="let item of costumerData" value="{{ item.id }}">{{ item.name }}</option>
+                            </select>
+                        </div>
+
+
+
+                        <div class="form-group formGroup3">
+                            <select name="installateur_id" class="form-control chosen-select" id="installateur_id_upd" ngControl="installateur_id" value="" >
+                                <option value="" >Installateur</option>
+                                <option *ngFor="let item of usersData" value="{{ item.id }}">{{ item.last_name }} {{ item.fisrt_name }}</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group formGroup5">
+                            <span class="span_le">Le</span>
+                            <input type="date" class="form-control" name="created_at" id="created_at_upd" min="00-00-00"  ngControl="created_at">
+                            <input type="hidden" id="end_date_upd" value="" ngControl="end_date_upd">
+                        </div>
+
+
+                        <div class="form-group formGroup7">
+                            <input type="time" class="form-control" name="heure" id="heure_upd" ngControl="heure" placeholder="Heur">
+                        </div>
+
+
+
+
+                        <div class="form-group formGroup7_5">
+                            <input type="label" class="form-control" name="date_vue" id="date_vue" ngControl="date_vue" placeholder="date vue">
+                        </div>
+
+
+
+
+
+                        <div class="form-group formGroup4">
+                            <span class="span_a">A</span>
+                            <input type="text" class="form-control" name="lieu" id="lieu_upd" ngControl="lieu" placeholder="Lieu">
+                        </div>
+
+
+
+
+
+                        <div class="form-group" style="display:none !important ;">
+                            <input type="date" class="form-control" name="update_at" id="update_at_upd" min="2018-08-06" ngControl="update_at">
+                        </div>
+
+
+
+
+
+
+                        <div class="form-group formGroup8">
+                            <select name="type" class="form-control chosen-select" id="type_upd" value=""  ngControl="type" (change)="check_selected_val_type_upd($event)" >
+                                <option value=""  >Type</option>
+                                <option value="1" style="    color: #f27272;  font-weight: 600;" >Commercial</option>
+                                <option value="2" style="    color: #3e9cde;  font-weight: 600;" >Administratif</option>
+                                <option value="3" style="    color: #ffc107;  font-weight: 600;" >Financier</option>
+                                <option value="4" style="    color: #1abc9c;  font-weight: 600;" >Logistique</option>
+                                <option value="5" style="    color: #59f2f2;  font-weight: 600;" >Téchnique</option>
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group formGroup9" id="div_inputs_upd_cas_technique" >
+                            <div class="div_inputs_add_cas_technique">
+                                <input id="txt_opt_1_technique_upd" type="text" placeholder="I" class="oneinput_div_inputs_add_cas_technique form-control" />
+                            </div>
+                            <div class="div_inputs_add_cas_technique">
+                                <input id="txt_opt_2_technique_upd" type="text" placeholder="V" class="oneinput_div_inputs_add_cas_technique form-control" />
+                            </div>
+                            <div class="div_inputs_add_cas_technique">
+                                <input id="txt_opt_3_technique_upd" type="text" placeholder="D" class="oneinput_div_inputs_add_cas_technique form-control" />
+                            </div>
+                            <div class="div_inputs_add_cas_technique">
+                                <input id="txt_opt_4_technique_upd" type="text" placeholder="R" class="oneinput_div_inputs_add_cas_technique form-control" />
+                            </div>
+                            <div class="div_inputs_add_cas_technique">
+                                <input id="txt_opt_5_technique_upd" type="text" placeholder="CB" class="oneinput_div_inputs_add_cas_technique form-control" />
+                            </div>
+                            <div class="div_inputs_add_cas_technique">
+                                <input id="txt_opt_6_technique_upd" type="text" placeholder="CS" class="oneinput_div_inputs_add_cas_technique form-control" />
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group formGroup10">
+                            <textarea type="text" class="form-control" name="remarque" id="remarque_upd" rows="4" ngControl="remarque"></textarea>
+
+                        </div>
+
+
+
+
+                    </div> <!-- skulladd upd-->
+
+                    <div id="event_created_by_upd">
+                        Evénément créer par : <span  id="val_event_created_by_upd"></span>
+
+                        <div id="div_date_created_at">
+                            Le : <span id="span_date_created_at"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div id="div_show_count_result_events_interval">
+    <p id="p_nbr_row_filter"><span id="span_nbr_row_filter">{{current_list_nbr_rows}}</span> ligne(s) :</p>
+</div>
+<div id="div_show_result_events_interval" style="display:none !important;">
+
+    <table id="table_filter_events">
+        <tr  id="trTitle_table_filter_events">
+            <th> Id</th>
+            <th> Title</th>
+            <th> Type</th>
+            <th> Id client</th>
+            <th> Id installateur</th>
+            <th> Remarque</th>
+            <th> Lieu</th>
+            <th> Created at</th>
+            <th> Update at</th>
+            <th> Heure</th>
+        </tr>
+        <tr *ngFor="let item of agendaData" class="tr_table_filter_events class_type_{{item.type}}" (click)="one_event_filter_clicked(item.id)"  >
+            <td class="td_table_filter_events" id="td_event_filter_id_{{item.id}}"> {{ item.id }}</td>
+            <td class="td_table_filter_events" id="td_event_filter_title_{{item.id}}"> {{ item.title }}</td>
+            <td class="td_table_filter_events" id="td_event_filter_type_{{item.id}}"> {{ item.type }}</td>
+            <td class="td_table_filter_events" id="td_event_filter_client_id_{{item.id}}"> {{ item.client_id }}</td>
+            <td class="td_table_filter_events" id="td_event_filter_installateur_id_{{item.id}}"> {{ item.installateur_id }}</td>
+            <td class="td_table_filter_events" id="td_event_filter_remarque_{{item.id}}"> {{ item.remarque }}</td>
+            <td class="td_table_filter_events" id="td_event_filter_lieu_{{item.id}}"> {{ item.lieu }}</td>
+            <td class="td_table_filter_events" id="td_event_filter_created_at_{{item.id}}"> {{ item.created_at }}</td>
+            <td style="    border: 1px solid gray;  padding: 0.25vw;" class="{{item.update_at}}"     id="td_event_filter_update_at_{{item.id}}"> {{item.update_at}}</td>
+            <td class="td_table_filter_events" id="td_event_filter_heure_{{item.id}}"> {{ item.heure }}</td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
