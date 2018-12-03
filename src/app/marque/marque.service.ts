@@ -8,7 +8,7 @@ import {catchError, tap} from "rxjs/operators";
 
 @Injectable()
 export class MarqueService {
-  private ApiUrl = 'http://localhost:8000/api/Marque';  // URL to web api
+  private ApiUrl = 'http://192.168.3.111:8000/api/Marque';  // URL to web api
   private row:any;
   private _options: RequestOptions = null;
 

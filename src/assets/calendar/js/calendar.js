@@ -1,5 +1,5 @@
 
-ApiUrl = 'http://localhost:8000/api/agenda';  // URL to web api
+ApiUrl = 'http://192.168.3.111:8000/api/agenda';  // URL to web api
 
 
 $(function() {

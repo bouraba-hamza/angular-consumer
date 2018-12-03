@@ -11,9 +11,9 @@ import {Factures} from "../facture-client/Factures";
 @Injectable()
 export class InterventionNonFactureService {
 
-    private ApiUrl = 'http://localhost:8000/api/FactureClient';
-    private Api = 'http://localhost:8000/api/interventionsNonFacture';
-    private Api1 = 'http://localhost:8000/api/costumer';
+    private ApiUrl = 'http://192.168.3.111:8000/api/FactureClient';
+    private Api = 'http://192.168.3.111:8000/api/interventionsNonFacture';
+    private Api1 = 'http://192.168.3.111:8000/api/costumer';
     // URL to web api
     private row:any;
     private _options: RequestOptions = null;

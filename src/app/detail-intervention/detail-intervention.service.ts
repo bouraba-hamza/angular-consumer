@@ -10,8 +10,8 @@ import {Vehicule} from "../vehicule/vehicule";
 export class DetailInterventionService {
 
 
-    private ApiUrl = 'http://localhost:8000/api/interventions';
-    private ApiUrlVehicule = 'http://localhost:8000/api/vehiculeAll';
+    private ApiUrl = 'http://192.168.3.111:8000/api/interventions';
+    private ApiUrlVehicule = 'http://192.168.3.111:8000/api/vehiculeAll';
 
   constructor(private http:HttpClient) { }
 

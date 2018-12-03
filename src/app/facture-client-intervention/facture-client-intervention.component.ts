@@ -133,7 +133,7 @@ export class FactureClientInterventionComponent {
         this.factureClientService.FacturePdf(id).subscribe(facture => {
             console.log('test');
             console.log(facture);
-            window.open('http://localhost:8000/api/FactureClientIntervention/pdf/'+id,"_self")
+            window.open('http://192.168.3.111:8000/api/FactureClientIntervention/pdf/'+id,"_self")
 
          },
         error1 => {

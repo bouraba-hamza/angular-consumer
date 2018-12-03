@@ -13,7 +13,7 @@ import * as XLSX from 'xlsx';
 @Injectable()
 export class JournalisationService {
 
-  private ApiUrl = 'http://localhost:8000/api/Journalisation';  // URL to web api
+  private ApiUrl = 'http://192.168.3.111:8000/api/Journalisation';  // URL to web api
   private row:any;
   private _options: RequestOptions = null;
 

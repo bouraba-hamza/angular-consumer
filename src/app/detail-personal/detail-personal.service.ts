@@ -11,7 +11,7 @@ import {DetailPersonal} from "./DetailPersonal";
 @Injectable()
 export class DetailPersonalService {
 
-  private ApiUrl = 'http://localhost:8000/api/Personaldetail';  // URL to web api
+  private ApiUrl = 'http://192.168.3.111:8000/api/Personaldetail';  // URL to web api
 
   constructor(private http:HttpClient) {
 
