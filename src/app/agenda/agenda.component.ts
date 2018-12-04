@@ -50,7 +50,7 @@ export class AgendaComponent implements OnInit {
     public calEvent_id ;
 
 
-    //private ApiUrl_customer_getAll = 'http://192.168.3.111:8000/api/costumer';  // URL to web api
+    //private ApiUrl_customer_getAll = 'http://localhost:8000/api/costumer';  // URL to web api
     //private row:any;
     //private _options: RequestOptions = null;
 
@@ -122,7 +122,7 @@ export class AgendaComponent implements OnInit {
 
     public current_etat_bd;
 
-    ApiUrl = 'http://192.168.3.111:8000/api/agenda';  // URL to web api
+    ApiUrl = 'http://localhost:8000/api/agenda';  // URL to web api
 
     public current_user_rows_count = 0 ;
     public current_user_lastRowsCount = -1 ;
@@ -1703,7 +1703,7 @@ export class AgendaComponent implements OnInit {
 
                 /*
   // a faire
-                          this.ApiUrl = 'http://192.168.3.111:8000/api/agenda';  // URL to web api
+                          this.ApiUrl = 'http://localhost:8000/api/agenda';  // URL to web api
                           $.ajax({url: this.ApiUrl+"/getusernamebyid/"+this.var_sup, success: function(result){ // URL to web api
                                   console.log(result);
                                   $("#val_event_created_by_upd").html(result);
@@ -1755,7 +1755,7 @@ export class AgendaComponent implements OnInit {
 
                                 this.calEvent_id = calEvent.id;
                                 //       console.log(this.calEvent_id);
-                                this.ApiUrl = 'http://192.168.3.111:8000/api/agenda';  // URL to web api
+                                this.ApiUrl = 'http://localhost:8000/api/agenda';  // URL to web api
 
 
                                 agendaservice.enabletatcalendar(this.calEvent_id).subscribe(agendaconsole => {

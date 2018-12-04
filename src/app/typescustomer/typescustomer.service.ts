@@ -8,7 +8,7 @@ import {catchError, tap} from "rxjs/operators";
 
 @Injectable()
 export class TypescustomerService {
-  private ApiUrl = 'http://192.168.3.111:8000/api/TypesCustomer';  // URL to web api
+  private ApiUrl = 'http://localhost:8000/api/TypesCustomer';  // URL to web api
 
   constructor(private http:HttpClient) {
 

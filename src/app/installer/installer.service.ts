@@ -7,7 +7,7 @@ import {Headers, RequestOptions} from "@angular/http";
 @Injectable()
 export class InstallerService {
 
-  private ApiUrl = 'http://192.168.3.111:8000/api/instalateur/';  // URL to web api
+  private ApiUrl = 'http://localhost:8000/api/instalateur/';  // URL to web api
 
   private _options: RequestOptions = null;
 

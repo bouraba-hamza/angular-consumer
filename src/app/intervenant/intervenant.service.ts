@@ -13,11 +13,11 @@ import {of} from "rxjs/observable/of";
 export class IntervenantService {
 
 
-    private ApiUrl = 'http://192.168.3.111:8000/api/interventions';  // URL to web api
-    private ApiUrlCostumer = 'http://192.168.3.111:8000/api/costumer';
-    private ApiUrlPersonal = 'http://192.168.3.111:8000/api/personals';
-    private ApiUrlVehicule = 'http://192.168.3.111:8000/api/vehiculeAll';
-    private ApiUrlPdf = 'http://192.168.3.111:8000/api/interventions/getPdf';
+    private ApiUrl = 'http://localhost:8000/api/interventions';  // URL to web api
+    private ApiUrlCostumer = 'http://localhost:8000/api/costumer';
+    private ApiUrlPersonal = 'http://localhost:8000/api/personals';
+    private ApiUrlVehicule = 'http://localhost:8000/api/vehiculeAll';
+    private ApiUrlPdf = 'http://localhost:8000/api/interventions/getPdf';
     private _options: RequestOptions = null;
 
 
@@ -53,7 +53,7 @@ export class IntervenantService {
     }
 
     pageChange(pN) {
-        return this.http.get<Personal[]>('http://192.168.3.111:8000/api/v?page='+pN);
+        return this.http.get<Personal[]>('http://localhost:8000/api/v?page='+pN);
     }
 
     addInterventionLigne (intervention: Intervenant): Observable<Intervenant> {

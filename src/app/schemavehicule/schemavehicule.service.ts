@@ -13,9 +13,9 @@ import {HttpParams, HttpRequest, HttpEvent} from '@angular/common/http';
 @Injectable()
 export class SchemavehiculeService {
 
-  private ApiUrl = 'http://192.168.3.111:8000/api/SchemaVehicule';  // URL to web api
-  private ApiUrlModele = 'http://192.168.3.111:8000/api/Modele';
-  private ApiUrlMarque = 'http://192.168.3.111:8000/api/Marque';
+  private ApiUrl = 'http://localhost:8000/api/SchemaVehicule';  // URL to web api
+  private ApiUrlModele = 'http://localhost:8000/api/Modele';
+  private ApiUrlMarque = 'http://localhost:8000/api/Marque';
   private row:any;
   private _options: RequestOptions = null;
 

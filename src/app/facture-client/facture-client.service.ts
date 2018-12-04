@@ -11,8 +11,8 @@ import {catchError, tap} from "rxjs/operators";
 @Injectable()
 export class FactureClientService {
 
-    private ApiUrl = 'http://192.168.3.111:8000/api/FactureClient';  // URL to web api
-    private ApiUrl1 = 'http://192.168.3.111:8000/api/LigneFactureClient';  // URL to web api
+    private ApiUrl = 'http://localhost:8000/api/FactureClient';  // URL to web api
+    private ApiUrl1 = 'http://localhost:8000/api/LigneFactureClient';  // URL to web api
     private row:any;
     private _options: RequestOptions = null;
 
@@ -127,14 +127,14 @@ export class FactureClientService {
 
     getallProduit(): Observable<LigneFacture[]> {
 
-        return this.http.get<LigneFacture[]>("http://192.168.3.111:8000/api/produits/select");
+        return this.http.get<LigneFacture[]>("http://localhost:8000/api/produits/select");
     }
 
 
     getallClient(): Observable<LigneFacture[]> {
 
 
-        return this.http.get<LigneFacture[]>("http://192.168.3.111:8000/api/costumer");
+        return this.http.get<LigneFacture[]>("http://localhost:8000/api/costumer");
     }
 
     private handleError<T> (operation = 'operation', result?: T) {

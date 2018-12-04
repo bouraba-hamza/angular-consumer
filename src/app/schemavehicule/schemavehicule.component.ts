@@ -362,7 +362,7 @@ export class SchemavehiculeComponent {
     let modelyear = $('#' + 'year').val();
 
 
-    let Apidownl = 'http://192.168.3.111:8000/api/SchemaVehicule/add';
+    let Apidownl = 'http://localhost:8000/api/SchemaVehicule/add';
 
     let formData: FormData = new FormData();
 
@@ -429,7 +429,7 @@ export class SchemavehiculeComponent {
     let year_id = $('#' + 'year_id').val();
 
 
-    let Apidownl = 'http://192.168.3.111:8000/api/SchemaVehicule/update';
+    let Apidownl = 'http://localhost:8000/api/SchemaVehicule/update';
 
     let formData: FormData = new FormData();
 

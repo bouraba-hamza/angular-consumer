@@ -13,8 +13,8 @@ import {Provider} from "../provider/Provider";
 @Injectable()
 export class VehiculeService {
 
-        private ApiUrl = 'http://192.168.3.111:8000/api/vehicule';  // URL to web api
-        private ApiUrlCostumer = 'http://192.168.3.111:8000/api/costumer';
+        private ApiUrl = 'http://localhost:8000/api/vehicule';  // URL to web api
+        private ApiUrlCostumer = 'http://localhost:8000/api/costumer';
         private row:any;
         private _options: RequestOptions = null;
 

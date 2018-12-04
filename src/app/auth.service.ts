@@ -13,7 +13,7 @@ import {catchError, tap} from "rxjs/operators";
 
 export class AuthService {
 
-     private Apiurl="http://192.168.3.111:8000/api";
+     private Apiurl="http://localhost:8000/api";
 
     constructor(private http: HttpClient,private httpdepracated:Http ) {
 

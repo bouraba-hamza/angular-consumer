@@ -10,7 +10,7 @@ import {catchError, tap} from "rxjs/operators";
 @Injectable()
 export class ProduitService {
 
-  private ApiUrl = 'http://192.168.3.111:8000/api/produits';  // URL to web api
+  private ApiUrl = 'http://localhost:8000/api/produits';  // URL to web api
   private row:any;
   private _options: RequestOptions = null;
 

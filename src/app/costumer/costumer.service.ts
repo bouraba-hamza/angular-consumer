@@ -11,9 +11,9 @@ import {Utilisateur} from "../utilisateur/Utilisateur";
 @Injectable()
 export class CostumerService {
 
-  private ApiUrl = 'http://192.168.3.111:8000/api/costumer';  // URL to web api
-  private ApiUrltypescustomer = 'http://192.168.3.111:8000/api/TypesCustomer';
-  private ApiUrlutilisateur = 'http://192.168.3.111:8000/api/utilisateur';
+  private ApiUrl = 'http://localhost:8000/api/costumer';  // URL to web api
+  private ApiUrltypescustomer = 'http://localhost:8000/api/TypesCustomer';
+  private ApiUrlutilisateur = 'http://localhost:8000/api/utilisateur';
 
   private row:any;
   private _options: RequestOptions = null;

@@ -11,10 +11,10 @@ import {Headers, RequestOptions} from "@angular/http";
 @Injectable()
 export class ImportationService {
 
-  private ApiUrl = 'http://192.168.3.111:8000/api/movements';  // URL to web api
-  private ApiUrlProduct = 'http://192.168.3.111:8000/api/products';  // URL to web api
-  private ApiUrlprovider = 'http://192.168.3.111:8000/api/provider';  // URL to web api
-  private ApiUrlcategorie = 'http://192.168.3.111:8000/api/categorie';  // URL to web api
+  private ApiUrl = 'http://localhost:8000/api/movements';  // URL to web api
+  private ApiUrlProduct = 'http://localhost:8000/api/products';  // URL to web api
+  private ApiUrlprovider = 'http://localhost:8000/api/provider';  // URL to web api
+  private ApiUrlcategorie = 'http://localhost:8000/api/categorie';  // URL to web api
 
   constructor(private http: HttpClient) { }
 

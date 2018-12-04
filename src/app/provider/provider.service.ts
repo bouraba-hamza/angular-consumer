@@ -11,8 +11,8 @@ import {TypesProvider} from "../typesprovider/TypesProvider";
 @Injectable()
 export class ProviderService {
 
-  private ApiUrl = 'http://192.168.3.111:8000/api/provider';  // URL to web api
-  private ApiUrltypesprovider = 'http://192.168.3.111:8000/api/TypesProvider';
+  private ApiUrl = 'http://localhost:8000/api/provider';  // URL to web api
+  private ApiUrltypesprovider = 'http://localhost:8000/api/TypesProvider';
 
 
   constructor(private http:HttpClient) {

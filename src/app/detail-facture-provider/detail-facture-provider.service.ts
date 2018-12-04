@@ -12,9 +12,9 @@ import {ReglementClient} from "../reglement-client/ReglementClient";
 @Injectable()
 export class DetailFactureProviderService {
 
-    private ApiUrl = 'http://192.168.3.111:8000/api/FactureProvider';  // URL to web api
-    private ApiUrl1 = 'http://192.168.3.111:8000/api/LigneFacture';  // URL to web api
-    private ApiUrl2 = 'http://192.168.3.111:8000/api/ReglementProvider';  // URL to web api
+    private ApiUrl = 'http://localhost:8000/api/FactureProvider';  // URL to web api
+    private ApiUrl1 = 'http://localhost:8000/api/LigneFacture';  // URL to web api
+    private ApiUrl2 = 'http://localhost:8000/api/ReglementProvider';  // URL to web api
     private row:any;
     private _options: RequestOptions = null;
 
@@ -66,7 +66,7 @@ export class DetailFactureProviderService {
     getAllBanque(): Observable<LigneFacture[]> {
 
 
-        return this.http.get<LigneFacture[]>("http://192.168.3.111:8000/api/banque/");
+        return this.http.get<LigneFacture[]>("http://localhost:8000/api/banque/");
     }
 
     deleteReg(reglement:ReglementClient | number) : Observable<LigneFacture> {
