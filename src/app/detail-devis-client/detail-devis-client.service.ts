@@ -9,8 +9,8 @@ import {LigneDevis} from "../devis-client/LigneDevis";
 @Injectable()
 export class DetailDevisClientService {
 
-    private ApiUrl = 'http://localhost:8000/api/DevisClient';  // URL to web api
-    private ApiUrl1 = 'http://localhost:8000/api/LigneDevisClient';  // URL to web api
+    private ApiUrl = 'http://192.168.3.111:8000/api/DevisClient';  // URL to web api
+    private ApiUrl1 = 'http://192.168.3.111:8000/api/LigneDevisClient';  // URL to web api
     private row:any;
     private _options: RequestOptions = null;
 

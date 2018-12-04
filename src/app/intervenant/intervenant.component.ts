@@ -373,7 +373,7 @@ export class IntervenantComponent implements OnInit {
         var end_date_input: any = document.getElementById('end_date');
         var date_input: any = document.getElementById('date');
 
-        let ApiUrl = 'http://localhost:8000/api/interventions/edit';
+        let ApiUrl = 'http://192.168.3.111:8000/api/interventions/edit';
 
         let formData:FormData = new FormData();
 
@@ -595,7 +595,7 @@ export class IntervenantComponent implements OnInit {
         this.intervenantService.getPdf( id ).subscribe(
             (response: any) => {
 
-                window.open('http://localhost:8000/api/interventions/getPdf/'+id,'_self');
+                window.open('http://192.168.3.111:8000/api/interventions/getPdf/'+id,'_self');
             },
             (error: any) => {
                 console.log(error);

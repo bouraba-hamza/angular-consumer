@@ -13,7 +13,7 @@ import {catchError, tap} from "rxjs/operators";
 export class AgendaService {
 
  
-  private ApiUrl = 'http://localhost:8000/api/agenda';  // URL to web api
+  private ApiUrl = 'http://192.168.3.111:8000/api/agenda';  // URL to web api
   private row:any;
   private _options: RequestOptions = null;
 

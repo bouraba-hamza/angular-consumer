@@ -12,8 +12,8 @@ import {ReglementClient} from "./ReglementClient";
 @Injectable()
 export class ReglementClientService {
 
-    private ApiUrl = 'http://localhost:8000/api/ReglementClient/';  // URL to web api
-    private ApiUrl1 = 'http://localhost:8000/api/LigneFacture';  // URL to web api
+    private ApiUrl = 'http://192.168.3.111:8000/api/ReglementClient/';  // URL to web api
+    private ApiUrl1 = 'http://192.168.3.111:8000/api/LigneFacture';  // URL to web api
     private row:any;
     private _options: RequestOptions = null;
 
