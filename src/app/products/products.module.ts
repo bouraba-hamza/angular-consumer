@@ -6,7 +6,6 @@ import {HttpClientModule} from "@angular/common/http";
 //import { ProductsRouting } from './products.routing';
 import { ProductsComponent } from './boitier/products.component';
 import {FormsModule} from '@angular/forms';
-import { HttpModule }    from '@angular/http';
 
 import {RouterModule} from "@angular/router";
 import {ProductsService} from "./boitier/products.service";
@@ -24,11 +23,11 @@ import {CartesimService} from "./cartesim/cartesim.service";
 @NgModule({
   imports: [
       SharedModule,
-      HttpClientModule,
+
       CommonModule,
       FormsModule,
       RouterModule.forChild(ProductsPageroute),
-      HttpModule,
+      HttpClientModule,
       NgxPaginationModule
   ],
   declarations: [ProductsComponent, CartesimComponent],

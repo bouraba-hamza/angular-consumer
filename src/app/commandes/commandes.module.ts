@@ -9,7 +9,6 @@ import {CommandesComponent} from './commandes.component';
 import {CommandesPageroute} from './commandes.routing';
 import {CommandesService} from "./commandes.service";
 import {FormsModule} from '@angular/forms';
-import { HttpModule }    from '@angular/http';
 import {SharedModule} from "../shared/shared.module";
 import {AgGridModule} from "ag-grid-angular";
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -24,11 +23,10 @@ import {ErrorInterceptor} from "../error-interceptor";
 
 @NgModule({
   imports: [
-      HttpClientModule,
       CommonModule,
       RouterModule.forChild(CommandesPageroute),
       FormsModule,
-      HttpModule,
+      HttpClientModule,
       SharedModule,
       AgGridModule,
       NgxPaginationModule,

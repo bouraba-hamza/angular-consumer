@@ -3,7 +3,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
@@ -55,7 +54,7 @@ import {PaginationComponent} from "./pagination/pagination.component";
     SharedModule,
     RouterModule.forRoot(AppRoutes),
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     ScrollModule,
     ReactiveFormsModule,
 

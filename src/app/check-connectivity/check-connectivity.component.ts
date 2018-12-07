@@ -22,13 +22,13 @@ import { IfObservable } from '../../../node_modules/rxjs/observable/IfObservable
 import { ProduitService } from '../produits/produits.service';
 import { Produits  } from '../produits/Produits';
 import { Http } from '../../../node_modules/@angular/http';
-import { HttpClient } from '../../../node_modules/@angular/common/http';
 // import { MessageService } from '../message.service';
 
 // import {default as data_json } from '../../assets/json_products.json';
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule }      from '@angular/http';
+import {HttpClient} from "@angular/common/http";
+
 import { AppComponent } from '../app.component';
 import {IndexedDBAngular} from 'indexeddb-angular';
  

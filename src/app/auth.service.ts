@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
-import { Http, Response, Headers } from "@angular/http";
+import {  Headers } from "@angular/http";
 
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/Rx';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {of} from "rxjs/observable/of";
 import {catchError, tap} from "rxjs/operators";
+import {products} from "./commandes/products";
 
 // import {AgendaService} from "./agenda/agenda.service";
 
@@ -15,7 +16,7 @@ export class AuthService {
 
      private Apiurl="http://192.168.3.111:8000/api";
 
-    constructor(private http: HttpClient,private httpdepracated:Http ) {
+    constructor(private http: HttpClient) {
 
   }
 
@@ -25,75 +26,25 @@ export class AuthService {
 
 
     login(email:string, pass:string) {
-    return this.httpdepracated.post(this.Apiurl+'/login',
-      {email: email, password: pass}
-    )
-    .map(
-      response => {
-        console.log(response.json().data.token);
-        return response.json().data.token;
-      })
-    .do(
-      (token) => {
 
 
+        return this.http.post<any[]>(this.Apiurl+'/login',
+            {email: email, password: pass}).pipe(
+            tap(data => {
 
+                console.log(data);
 
-           // set id_user and role
-          let encoded_email = btoa(email);
+                localStorage.setItem('token', data[0].token);
+                localStorage.setItem('user_id', data[0].user_id);
+                localStorage.setItem('role', data[0].role);
 
-          this.http.get<any[]>(`${this.Apiurl}/agenda/getuser_by_mail/${encoded_email}`).pipe(
-              tap(_ => this.log(`Agenda events matching `)),
-              catchError(this.handleError<any[]>('getuser_by_mail', []))
-          ).subscribe(data => {
-              let  current_user = data;
-              console.log('----- getuser_by_mail [ '+email+' ]');
-              console.log(data);
-         //     if(data.length > 0){
-                  console.log(data[0].id);
-                  console.log(data[0].fonction);
+                this.isLoggedIn = true;
 
-                  localStorage.setItem('user_id', data[0].id);
-                  localStorage.setItem('role', data[0].fonction);
-          //    }
-            });
-
-
-          localStorage.setItem('token', token);
-
-          this.isLoggedIn = true;
-
-
-
-          /*
-      this.http.get<any[]>(`${this.ApiUrl2}/getuser_by_mail/${email}`).pipe(
-           tap(_ => this.log(`Agenda events matching `)),
-           catchError(this.handleError<any[]>('getuser_by_mail', []))
-       ).subscribe(data => {
-          let  current_user = data;
-          console.log('----- getuser_by_mail [ '+email+' ]');
-          console.log(data);
-          if(data.length > 0){
-              console.log(data[0].id);
-              console.log(data[0].fonction);
-
-              localStorage.setItem('user_id', data[0].id);
-              localStorage.setItem('role', data[0].fonction);
-          }
-
-       });
-       */
-
-
-
-
-
-      }
-    )
+            }),
+            catchError(this.handleError<any>('login'))
+        )
   }
 
-  //   headers.append('Content-Type', 'application/json; charset=utf-8');
- //   headers.append('Authorization', 'auth-token');
 
   checkAuth() {
 
@@ -106,12 +57,12 @@ export class AuthService {
 
   logout() {
 
-      const httpOptions = {
-          headers: new HttpHeaders({
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + localStorage.getItem('token')
-          })
-      };
+      // const httpOptions = {
+      //     headers: new HttpHeaders({
+      //         'Content-Type': 'application/json',
+      //         'Authorization': 'Bearer ' + localStorage.getItem('token')
+      //     })
+      // };
      // return this.http.get(this.ApiUrlPdf+'/'+id,  httpOptions
       console.log(this.Apiurl + '/logout');
       console.log(localStorage.getItem('token'));
@@ -122,8 +73,7 @@ export class AuthService {
       localStorage.removeItem('role');
 
       return this.http.get(
-          this.Apiurl + '/logout',
-          httpOptions
+          this.Apiurl + '/logout'
       ).pipe(
           tap((response: any) => this.log(`response=${response}`)),
           catchError(this.handleError<any>('logout'))
